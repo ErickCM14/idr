@@ -1,0 +1,5 @@
+<div class="text-center mt-5">
+    <div *ngFor="let boton of this.botones">
+        <button type="button" class="btn btn-primary w-50 mb-3" [routerLink]="['/idr', boton.ref ]">{{boton.titulo}}</button>
+    </div>
+</div>

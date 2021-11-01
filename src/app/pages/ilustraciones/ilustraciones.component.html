@@ -1,0 +1,46 @@
+<!-- <div class="mt-5 text-center">
+    <div>
+        ​<picture>
+            <img [src]="this.lugar[0].src" class="img-fluid img-thumbnail" alt="">
+        </picture>
+        
+    </div>
+
+    <button type="button" class="btn btn-danger mt-3 w-25" [routerLink]="['/idr', this.path]">Regresar</button>
+
+</div> -->
+<main class="container pt-5 mb-5">
+
+    <div class="w-50 pt-5" style="margin: 0 auto;">
+        <picture>
+            <a *ngIf="imagenes[this.id-1].enlace" href={{imagenes[this.id-1].enlace}}>
+                <img [src]="imagenes[this.id-1].imagen" class="w-100" alt="">
+            </a>
+            <img *ngIf="!imagenes[this.id-1].enlace" [src]="imagenes[this.id-1].imagen" class="w-100" alt="">
+        </picture>
+
+        <button type="button" class="btn btn-danger mt-3 w-100" [routerLink]="['/idr', idUsuario]">Regresar</button>
+
+    </div>
+    
+</main>
+
+<footer class="position-absolute bottom-0" style="width: 100%;" >
+    <div id="carouselExampleControls" class="carousel slide marginClase" data-bs-ride="carousel">
+        <div class="carousel-inner d-flex ">
+            <div class="carousel-item active" data-bs-interval="2000" > <!--data-bs-interval="2000" para los segundos-->
+                <img [src]="anuncios[0]?.imagen" class="d-block" alt="..." style="width: 100%;">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000"> 
+                <img [src]="anuncios[1]?.imagen" class="d-block" alt="..." style="width: 100%;">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img [src]="anuncios[2]?.imagen" class="d-block" alt="..." style="width: 100%;">
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img [src]="anuncios[3]?.imagen" class="d-block" alt="..." style="width: 100%;">
+            </div>
+        </div>
+
+    </div>
+</footer>

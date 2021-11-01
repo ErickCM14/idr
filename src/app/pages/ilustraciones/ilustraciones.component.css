@@ -1,0 +1,11 @@
+img{
+    /* width: 85%;
+    max-height: 250px;
+    object-fit: cover; */
+}
+
+@media(min-width:768px){
+    img{
+        width: 50%;
+    }
+}

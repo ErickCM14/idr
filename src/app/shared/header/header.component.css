@@ -1,0 +1,9 @@
+@media(max-width: 768px) {
+    .container-fluid{
+        justify-content: center;
+    }
+
+    .container-fluid img{
+        height: 55px;
+    }
+}

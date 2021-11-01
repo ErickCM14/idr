@@ -1,0 +1,44 @@
+.marginClase{
+    margin: 0 auto;
+    max-width: 600px;
+    min-width: 300px;
+}
+
+main{
+    min-height: 71vh;
+}
+
+.boton-rectangulo{
+    height: 50px;
+}
+
+.boton-cuadrado{
+    height: 100px;
+}
+
+.marginClase img{
+    width: 80%;
+}
+
+@media(min-width:512px){
+    .marginClase img{
+        width: 40%;
+    }
+}
+
+.boton-rectangulo-img{
+    height: 100%;
+  }
+
+.carousel-inner{
+    max-height: 200px;
+}
+
+img{
+    object-fit: cover;
+    max-height: 200px;
+}
+
+body {
+    margin: 0 0 125px 0!important;
+}

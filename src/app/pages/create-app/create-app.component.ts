@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDragEnter } from '@angular/cdk/drag-drop';
 import { AuthService } from 'src/app/services/auth.service';
 import { concatMap, mergeMap } from 'rxjs/operators';
-// import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { MenuModel } from 'src/app/models/menu.model';
 import { ActivatedRoute } from '@angular/router';
+declare const Swal;
 
 @Component({
   selector: 'app-create-app',
@@ -1003,14 +1003,14 @@ export class CreateAppComponent implements OnInit {
         data.append("upload_preset", "idr_angular");
         data.append("cloud_name", "idrenlinea")
 
-        // Swal.fire({
-        //   allowOutsideClick: false,
-        //   icon: 'info',
-        //   text: 'Subiendo imagen y guardanto información, espere un momento, por favor...'
-        // });
-        // Swal.showLoading();
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'info',
+          text: 'Subiendo imagen y guardanto información, espere un momento, por favor...'
+        });
+        Swal.showLoading();
 
-
+        
         //Mandar bloque y hacer un modelo de datos para recibir los datos correspondientes
         this._auth.uploadImagen(data).pipe(
           concatMap(resp => {
@@ -1028,15 +1028,13 @@ export class CreateAppComponent implements OnInit {
           console.log(resp)
           console.log(this[`${btnSeleccionado}`]);
           console.log(this.anunciosDrop);
-          // Swal.fire({
-          //   title: 'Completado',
-          //   text: 'Se han guardado los datos de su Menú gráfico correctamente',
-          //   icon: "success"
-          // })
-
+          Swal.fire({
+            title: 'Completado',
+            text: 'Se han guardado los datos de su Menú gráfico correctamente',
+            icon: "success"
+          })
           // this.urlQR = `http://localhost:4200/idr/${this._id}?token=${this.token}`
           // this.booleanQR = true;
-
         }, error => {
           console.log(error);
         }, () => {
@@ -1046,21 +1044,20 @@ export class CreateAppComponent implements OnInit {
 
       }else{
 
-        // Swal.fire({
-        //   allowOutsideClick: false,
-        //   icon: 'info',
-        //   text: 'Guardanto información, espere un momento, por favor...'
-        // });
-        // Swal.showLoading();
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'info',
+          text: 'Guardanto información, espere un momento, por favor...'
+        });
+        Swal.showLoading();
 
         this._auth.guardarDatosIdr(this.menuModel).subscribe(resp => {
           console.log(resp);
-          // Swal.fire({
-          //   title: 'Completado',
-          //   text: 'Se han guardado los datos de su Menú gráfico correctamente',
-          //   icon: "success"
-          // })
-
+          Swal.fire({
+            title: 'Completado',
+            text: 'Se han guardado los datos de su Menú gráfico correctamente',
+            icon: "success"
+          })
           // this.urlQR = `http://localhost:4200/idr/${this._id}?token=${this.token}`
           // this.booleanQR = true;
           console.log(this.menuModel);
@@ -1069,7 +1066,7 @@ export class CreateAppComponent implements OnInit {
           
         }, error => {
           console.log(error);
-          // Swal.close()
+          Swal.close()
         })
 
       }

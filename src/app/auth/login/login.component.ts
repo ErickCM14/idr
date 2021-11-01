@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuarioModel } from 'src/app/models/usuario.model';
-// import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+declare const Swal 
 
 @Component({
   selector: 'app-login',
@@ -106,50 +106,50 @@ export class LoginComponent implements OnInit {
 
     // return;
 
-    // Swal.fire({
-    //   title: '¿Sus datos son correctos?',
-    //   text: 'Se enviará un SMS a su número telefonico con los accesos para ingresar a IDR demo en línea',
-    //   icon: 'question',
-    //   showConfirmButton: true,
-    //   showCancelButton: true,
-    //   cancelButtonText: 'Cancelar',
-    //   confirmButtonText: 'Aceptar'
-    // }).then(resp => {
-    //   if (resp.value) {
+    Swal.fire({
+      title: '¿Sus datos son correctos?',
+      text: 'Se enviará un SMS a su número telefonico con los accesos para ingresar a IDR demo en línea',
+      icon: 'question',
+      showConfirmButton: true,
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Aceptar'
+    }).then(resp => {
+      if (resp.value) {
 
-    //     Swal.fire({
-    //       allowOutsideClick: false,
-    //       icon: 'info',
-    //       text: 'Guardando información'
-    //     });
-    //     Swal.showLoading();
-    //     this.usuarioModel = this.registroForm.value
-    //     this.usuarioModel.password = password;
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'info',
+          text: 'Guardando información'
+        });
+        Swal.showLoading();
+        this.usuarioModel = this.registroForm.value
+        this.usuarioModel.password = password;
 
         this.auth.registro(this.usuarioModel).subscribe(next => {
           console.log(next);
-          // Swal.fire({
-          //   title: 'Registrado correctamente',
-          //   text: `¡Bienvenido ${this.usuarioModel.nombre}!, ingresa las credenciales que se te enviaron via SMS`,
-          //   icon: 'success'
-          // })
+          Swal.fire({
+            title: 'Registrado correctamente',
+            text: `¡Bienvenido ${this.usuarioModel.nombre}!, ingresa las credenciales que se te enviaron via SMS`,
+            icon: 'success'
+          })
         }, error => {
           console.log(error);
           console.log(error.error.includes('Email ya existe'));
           if (error.error.includes('Email ya existe')) {
-            // Swal.fire({
-            //   title: 'Email ya existe',
-            //   text: 'Este email ya ha sido registrado',
-            //   icon: 'error',
-            //   confirmButtonText: 'Aceptar'
-            // })
+            Swal.fire({
+              title: 'Email ya existe',
+              text: 'Este email ya ha sido registrado',
+              icon: 'error',
+              confirmButtonText: 'Aceptar'
+            })
           }
         }, () => {
           this.registroForm.reset()
         })
 
-      // }
-    // })
+      }
+    })
   }
 
   generatePasswordRand(): string {
@@ -167,25 +167,25 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
     // return
 
-    // Swal.fire({
-    //   allowOutsideClick: false,
-    //   icon: 'info',
-    //   text: 'Autenticando credenciales'
-    // });
-    // Swal.showLoading();
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text: 'Autenticando credenciales'
+    });
+    Swal.showLoading();
 
     this.auth.iniciarSesion(this.loginForm.value).subscribe(next => {
       console.log(next);
       this._id = next['user']['id'];
-      // Swal.close()
+      Swal.close()
     }, error => {
       console.log(error);
-      // Swal.fire({
-      //   title: `${error.error.errors}`,
-      //   text: `Ingrese correctamente sus credenciales`,
-      //   icon: 'error',
-      //   confirmButtonText: 'Aceptar'
-      // })
+      Swal.fire({
+        title: `${error.error.errors}`,
+        text: `Ingrese correctamente sus credenciales`,
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      })
     }, () => {
       this.router.navigateByUrl(`/idr`);
     })

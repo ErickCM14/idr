@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router'
 
-// import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeModule } from 'angularx-qrcode';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -34,7 +34,7 @@ import { CreateAppComponent } from './create-app/create-app.component';
     ReactiveFormsModule,
     DragDropModule,
     ToastrModule.forRoot(),
-    // QRCodeModule
+    QRCodeModule
   ]
 })
 export class PagesModule { }

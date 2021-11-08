@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { UsuarioModel } from '../models/usuario.model';
 import { LoginModel } from '../models/login.model';
@@ -11,10 +11,13 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-
-  private registrar = `http://localhost:4001/v1/usuarios`;
-  private login = `http://localhost:4001/v1/usuarios/entrar`;
-  private idr = `http://localhost:4001/v1/idr/`;
+  private url = "https://idr-backend-c846inyxt-idr-enlinea.vercel.app/v1/"
+  // private url = "http://localhost:4001/v1/"
+  private registrar = `${this.url}usuarios`;
+  private login = `${this.url}usuarios/entrar`;
+  private emailRestringido = `${this.url}usuarios/usuario-restringido`;
+  private idr = `${this.url}idr/`;
+  private filtro = `${this.url}filtro/`;
   private urlCloudinary = "https://api.cloudinary.com/v1_1/idrenlinea/image/upload"
 
   headers: any;
@@ -33,6 +36,18 @@ export class AuthService {
       'Content-Type': 'application/json',
       'Authorization': 'Token ' + this.token
     }
+  }
+
+  cerrarSesion(){
+    return new Promise(resolve => {
+      localStorage.removeItem('id');
+      localStorage.removeItem('token');
+      localStorage.removeItem('email');
+      localStorage.removeItem('anuncios');
+      localStorage.removeItem('data');
+
+      resolve(true)
+    })
   }
 
   registro(usuario: UsuarioModel) {
@@ -58,18 +73,29 @@ export class AuthService {
 
   guardarDatosIdr(datos: MenuModel) {
     return this.http.put(this.idr + this._id, datos, {
-      headers: new HttpHeaders(this.headers)
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.token
+      }
     })
 
   }
 
   obtenerDatosIdr(id: string, token: string): Observable<any> {
     return this.http.get(this.idr + id, {
-      headers: new HttpHeaders({
+      headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Token ' + token
-      })
+      }
     })
+  }
+
+  obtenerDatosFiltro(): Observable<any> {
+    return this.http.get(this.filtro)
+  }
+
+  enviarEmailRestriccion(body: any): Observable<any>{
+    return this.http.post(this.emailRestringido, body)
   }
 
   uploadImagen(data: any): Observable<any> {

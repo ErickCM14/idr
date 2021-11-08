@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-ilustraciones',
@@ -84,28 +85,34 @@ export class IlustracionesComponent implements OnInit {
   anuncios: any;
 
 
-constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private _auth: AuthService) { }
 
-ngOnInit(): void {
-  this.idUsuario = this.route.snapshot.paramMap.get('idUsuario');
-  this.id =  Number(this.route.snapshot.paramMap.get('id'));
-  
-  this.path = this.route.snapshot.url[0].path;
+  ngOnInit(): void {
+    this.idUsuario = this.route.snapshot.paramMap.get('idUsuario');
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
 
-  this.anuncios = JSON.parse(localStorage.getItem('anuncios'))
-  console.log(this.anuncios);
-  
+    this.path = this.route.snapshot.url[0].path;
 
-  // this.lugar = this.datos.find(element =>
-  //   Object.keys(element)[0] == this.id
-    
-  // )
+    this.anuncios = JSON.parse(localStorage.getItem('anuncios'))
+    console.log(this.anuncios);
 
-  // this.lugar = Object.values(this.lugar)
-  // console.log(this.lugar[0]);
 
-  // console.log(Object.values(this.lugar) );
-  
-}
+    // this.lugar = this.datos.find(element =>
+    //   Object.keys(element)[0] == this.id
+
+    // )
+
+    // this.lugar = Object.values(this.lugar)
+    // console.log(this.lugar[0]);
+
+    // console.log(Object.values(this.lugar) );
+
+  }
+
+  async cerrarSesion() {
+    let cerrar = await this._auth.cerrarSesion()
+    console.log(cerrar);
+    window.location.href = "https://solucionesavanzadasyserviciosdigitales.com/"
+  }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem, CdkDragEnter } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AuthService } from 'src/app/services/auth.service';
 import { concatMap, mergeMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
@@ -23,8 +23,8 @@ export class CreateAppComponent implements OnInit {
   fileImagen: any;
   fileImagenSubir: any;
   menuModel: MenuModel = new MenuModel;
-  // urlQR: string;
-  // booleanQR: boolean = false;
+  urlQR: string;
+  booleanQR: boolean = false;
   element: string = "url";
 
   _id: string;
@@ -543,6 +543,20 @@ export class CreateAppComponent implements OnInit {
   constructor(private _auth: AuthService, private toastr: ToastrService, private route: ActivatedRoute) { 
     this._id = localStorage.getItem('id')
     this.token = localStorage.getItem('token')
+
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      console.log('Esto es un dispositivo móvil');
+      Swal.fire({
+        title: "Advertencia",
+        text: "Esta aplicación web no esta desarrollada para utilizarse con un dispositivo móvil, use una computadora",
+        icon: "info"
+      })
+      
+   }else{
+     console.log("nooo");
+     console.log(navigator.userAgent);
+   }
+
   }
 
   ngOnInit(): void { }
@@ -1029,12 +1043,13 @@ export class CreateAppComponent implements OnInit {
           console.log(this[`${btnSeleccionado}`]);
           console.log(this.anunciosDrop);
           Swal.fire({
-            title: 'Completado',
-            text: 'Se han guardado los datos de su Menú gráfico correctamente',
+            title: 'Datos guardados',
+            text: 'Escanee el QR generado y vea su Menú gráfico en su celular',
             icon: "success"
           })
-          // this.urlQR = `http://localhost:4200/idr/${this._id}?token=${this.token}`
-          // this.booleanQR = true;
+          this.urlQR = `https://idrenlinea.solucionesavanzadasyserviciosdigitales.com/#/idr/${this._id}?token=${this.token}`
+          // this.urlQR = `http://localhost:4200/#/idr/${this._id}?token=${this.token}`
+          this.booleanQR = true;
         }, error => {
           console.log(error);
         }, () => {
@@ -1054,16 +1069,19 @@ export class CreateAppComponent implements OnInit {
         this._auth.guardarDatosIdr(this.menuModel).subscribe(resp => {
           console.log(resp);
           Swal.fire({
-            title: 'Completado',
-            text: 'Se han guardado los datos de su Menú gráfico correctamente',
+            title: 'Datos guardados',
+            text: 'Escanee el QR generado y vea su Menú gráfico en su celular',
             icon: "success"
           })
-          // this.urlQR = `http://localhost:4200/idr/${this._id}?token=${this.token}`
-          // this.booleanQR = true;
+          this.urlQR = `https://idrenlinea.solucionesavanzadasyserviciosdigitales.com/#/idr/${this._id}?token=${this.token}`
+          // this.urlQR = `http://localhost:4200/#/idr/${this._id}?token=${this.token}`
+          this.booleanQR = true;
           console.log(this.menuModel);
           console.log(this[`${btnSeleccionado}`]);
           
-          
+          //contra z(Fn2JETUa
+          //617a3a6c3931ce2c381113e1
+          //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2EzYTZjMzkzMWNlMmMzODExMTNlMSIsImVtYWlsIjoiaWRyLmVubGluZWFAZ21haWwuY29tIiwiZXhwIjoxNjQzODUzNTQ2LCJpYXQiOjE2MzYwNzc1NDZ9.Y6aX3ZADl7VkMh8QfgOjoDPwcW_6pEOvVrjho0uzBD0
         }, error => {
           console.log(error);
           Swal.close()
@@ -1387,9 +1405,10 @@ export class CreateAppComponent implements OnInit {
   onfileChange(event) {
     // console.log('img: ', event);
 
+    
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
-      if (file.type.includes("image")) {
+      if (file.type.includes("image/jpeg")) {
         this.fileImagen = file;
         console.log("Imagen cargada::", this.fileImagen);
 
@@ -1405,11 +1424,19 @@ export class CreateAppComponent implements OnInit {
           this.anunciosDrag[3].imagen = reader.result;
         }.bind(this);
 
+      }else{
+        event.srcElement.value = "" 
       }
     }
 
   }
 
+
+  async cerrarSesion(){
+     let cerrar = await this._auth.cerrarSesion()
+     console.log(cerrar);
+    window.location.href="https://solucionesavanzadasyserviciosdigitales.com/"
+  }
 
 
 

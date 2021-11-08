@@ -1,13 +1,46 @@
-@media(max-width:1000px){
-  .container{
-    max-width: 95%;
-  }
+.contenedor{
+    background: linear-gradient(to right, #EBF0F9 0%, #EBF0F9 72%, white 72%, white 100%) !important;
+    min-height: 100vh;
+}
+
+.marginClase{
+  height: 340px;
+}
+
+.bloques{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 @media(min-width:1400px){
   .container{
     max-width: 1140px;
   }
+}
+
+@media(max-width:1000px){
+  .container{
+    max-width: 95%;
+  }
+  .bloques{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width:1024px){
+  .btns-dragables{
+    flex-direction: column;
+  }
+
+  .btns-dragables > div{
+    margin: 0 auto;
+  }
+
+  .btns-dragables .col-3, .btns-dragables .dragable-3-btn{
+    width: 100%;
+  }
+
 }
 
 @media(max-width:768px){
@@ -22,6 +55,8 @@
   .position-fixed{
     position: relative!important;
     width: 100%;
+    max-width: 300px;
+    margin:  0 auto;
   }
   .col-9{
     width: 100%;
@@ -29,19 +64,61 @@
 }
 
 .cel{
-    width: 100%;
+  width: 100%;
 }
 
 .boton-rectangulo{
   height: 32px;
-}
-
-.boton-rectangulo-img{
+  }
+  
+  .boton-rectangulo-img{
   height: 55px;
+  }
+  
+  .boton-cuadrado{
+  height: 60px;
+  }
+  
+  .rectanguloVertical{
+    height: 120px;
+  }
+
+
+.qr-box{
+  visibility: visible;
 }
 
-.boton-cuadrado{
-  height: 60px;
+@media(min-device-width:768px) and (max-device-width:1000px) and (max-height:500px) and (orientation: landscape) {
+  .qr-box{
+    visibility: hidden;
+  }
+
+  .marginClase{
+    height: 260px;
+  }
+
+  .qr-box{
+    padding: 10px!important;
+    margin: 0 auto!important;
+    max-width: 200px;
+  }
+
+  .boton-rectangulo{
+    height: 15px;
+  }
+  
+  .boton-rectangulo-img{
+    height: 35px;
+  }
+  
+  .boton-cuadrado{
+    height: 40px;
+  }
+
+  .rectanguloVertical{
+    height: 90px;
+  }
+
 }
 
 

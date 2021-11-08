@@ -11,7 +11,7 @@
 </div> -->
 <main class="container pt-5 mb-5">
 
-    <div class="w-50 pt-5" style="margin: 0 auto;">
+    <div class="pt-5 ilustracion" style="margin: 0 auto;">
         <picture>
             <a *ngIf="imagenes[this.id-1].enlace" href={{imagenes[this.id-1].enlace}}>
                 <img [src]="imagenes[this.id-1].imagen" class="w-100" alt="">
@@ -19,16 +19,15 @@
             <img *ngIf="!imagenes[this.id-1].enlace" [src]="imagenes[this.id-1].imagen" class="w-100" alt="">
         </picture>
 
-        <button type="button" class="btn btn-danger mt-3 w-100" [routerLink]="['/idr', idUsuario]">Regresar</button>
-
+        <button type="button" class="btn btn-secondary mt-3 w-100" [routerLink]="['/idr', idUsuario]">Menu principal</button>
     </div>
     
 </main>
 
-<footer class="position-absolute bottom-0" style="width: 100%;" >
+<footer class="position-static bottom-0" style="width: 100%;" >
     <div id="carouselExampleControls" class="carousel slide marginClase" data-bs-ride="carousel">
         <div class="carousel-inner d-flex ">
-            <div class="carousel-item active" data-bs-interval="2000" > <!--data-bs-interval="2000" para los segundos-->
+            <div class="carousel-item active" data-bs-interval="1000" > <!--data-bs-interval="2000" para los segundos-->
                 <img [src]="anuncios[0]?.imagen" class="d-block" alt="..." style="width: 100%;">
             </div>
             <div class="carousel-item" data-bs-interval="2000"> 
@@ -44,3 +43,8 @@
 
     </div>
 </footer>
+
+<div class="d-flex justify-content-between w-100 mb-3">
+    <button type="button" class="btn btn-danger btn-sm w-25 mt-2" (click)="cerrarSesion()">Salir</button>
+    <img src="../../../assets/SASDSA.png" class="w-50" alt="" style="object-fit: contain;">
+</div>

@@ -1,7 +1,11 @@
-img{
-    /* width: 85%;
-    max-height: 250px;
-    object-fit: cover; */
+.ilustracion{
+    width: 75%;
+}
+
+@media(min-width:540px){
+    .ilustracion{
+        width: 50%;
+    }
 }
 
 @media(min-width:768px){

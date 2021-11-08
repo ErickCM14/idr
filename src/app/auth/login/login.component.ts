@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { Router } from '@angular/router';
-declare const Swal 
+declare const Swal
 
 @Component({
   selector: 'app-login',
@@ -32,6 +32,10 @@ export class LoginComponent implements OnInit {
       tel: '0987654321'
     }
   ]
+
+  arrayTelefonos: any = []
+  arrayDominios: any = []
+  arrayEmpresas: any = []
   private _id: string;
 
   constructor(private auth: AuthService, private fb: FormBuilder, private router: Router) { }
@@ -41,7 +45,22 @@ export class LoginComponent implements OnInit {
     this.inicializarLogin();
     // let hola = this.generatePasswordRand()
     // console.log(hola);
+    this.peticionFiltros()
 
+  }
+
+  peticionFiltros() {
+    this.auth.obtenerDatosFiltro().subscribe(resp => {
+      console.log(resp);
+
+      this.arrayTelefonos = resp[0].telefonos
+      this.arrayDominios = resp[0].dominios
+      this.arrayEmpresas = resp[0].empresas
+      console.log(this.arrayDominios, this.arrayTelefonos, this.arrayEmpresas);
+
+    }, error => {
+      console.log(error);
+    })
   }
 
   inicializarRegistro() {
@@ -74,37 +93,38 @@ export class LoginComponent implements OnInit {
   guardarRegistro() {
     if (this.registroForm.invalid) { this.registroForm.markAllAsTouched(); return }
 
-    if (this.registroForm.value['email'].indexOf('s10plus') != '-1' || this.registroForm.value['email'].indexOf('garceislas') != '-1' || this.registroForm.value['email'].indexOf('carial') != '-1') {
+    let emailFind = this.arrayTelefonos.find(element => element == this.registroForm.value['telefono'])
+    let empresaFind = this.arrayEmpresas.find(element => element == this.registroForm.value['empresa'])
+    let dominioFind = this.arrayDominios.find(element => this.registroForm.value['email'].includes(element))
 
-      console.log(this.registroForm.value['email'].indexOf('s10plus'));
-      this.esRestringido = true
-      return;
+    if (emailFind || !dominioFind || !empresaFind) {
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text: 'Guardando información'
+      });
+      Swal.showLoading();
+
+      setTimeout(() => {
+
+        this.auth.enviarEmailRestriccion(this.registroForm.value).subscribe(resp => {
+          console.log(resp);
+          Swal.close()
+        }, error => {
+          console.log(error);
+        })
+
+        this.esRestringido = true
+        
+      }, 4000);
+
+      return
+
     }
-    this.esRestringido = false
-
-   let emailFind =  this.array.find(element => element.email == this.registroForm.value['email'] || element.tel == this.registroForm.value['telefono'])
-  //  let telFind =  this.array.find(element => element.tel == this.registroForm.value['telefono'] )
-
-    console.log(emailFind);
-    // console.log(telFind);
-    if(emailFind){
-      console.log("hay algo");
-    }else{
-      console.log("no hay");
-    }
-    
-
-
-    // this.registroForm.value['telefono'] = this.registroForm.value['prefijo'] + this.registroForm.value['telefono']
-    // delete this.registroForm.value['prefijo']
-
     console.log(this.registroForm.value);
-
 
     const password = this.generatePasswordRand();
     console.log(password);
-
-    // return;
 
     Swal.fire({
       title: '¿Sus datos son correctos?',

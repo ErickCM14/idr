@@ -11,7 +11,7 @@
 </div> -->
 <main class="container pt-5 mb-5">
 
-    <div class="pt-5 ilustracion" style="margin: 0 auto;">
+    <div class="pt-5 ilustracion marginClase" style="margin: 0 auto;">
         <picture>
             <a *ngIf="imagenes[this.id-1].enlace" href={{imagenes[this.id-1].enlace}}>
                 <img [src]="imagenes[this.id-1].imagen" class="w-100" alt="">
@@ -44,7 +44,7 @@
     </div>
 </footer>
 
-<div class="d-flex justify-content-between w-100 mb-3">
+<div class="container marginClase d-flex justify-content-between w-100 mb-3">
     <button type="button" class="btn btn-danger btn-sm w-25 mt-2" (click)="cerrarSesion()">Salir</button>
     <img src="../../../assets/SASDSA.png" class="w-50" alt="" style="object-fit: contain;">
 </div>

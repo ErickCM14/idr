@@ -1,3 +1,9 @@
+.marginClase{
+    margin: 0 auto;
+    max-width: 600px;
+    min-width: 300px;
+}
+
 .ilustracion{
     width: 75%;
 }

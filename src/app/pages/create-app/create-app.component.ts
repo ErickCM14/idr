@@ -80,7 +80,7 @@ export class CreateAppComponent implements OnInit {
       imagen2: "../../../assets/botones/btn1y2/eventos-1.png",
       imagen3: "../../../assets/botones/btn3/eventos.png",
       icon: "fas fa-theater-masks",
-      texto: 'Eventos y Expos',
+      texto: 'Eventos',
       bg: 'blue',
       color: 'white',
     },
@@ -147,7 +147,7 @@ export class CreateAppComponent implements OnInit {
       imagen2: "../../../assets/botones/btn1y2/eventos-1.png",
       imagen3: "../../../assets/botones/btn3/eventos.png",
       icon: "fas fa-theater-masks",
-      texto: 'Eventos y Expos',
+      texto: 'Eventos',
       bg: 'blue',
       color: 'white',
     },
@@ -540,22 +540,22 @@ export class CreateAppComponent implements OnInit {
   bloque4: boolean = false
   sinBloque: boolean = true;
 
-  constructor(private _auth: AuthService, private toastr: ToastrService, private route: ActivatedRoute) { 
+  constructor(private _auth: AuthService, private toastr: ToastrService, private route: ActivatedRoute) {
     this._id = localStorage.getItem('id')
     this.token = localStorage.getItem('token')
 
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       console.log('Esto es un dispositivo móvil');
       Swal.fire({
         title: "Advertencia",
-        text: "Esta aplicación web no esta desarrollada para utilizarse con un dispositivo móvil, use una computadora",
+        text: "Esta aplicación web no esta desarrollada para utilizarse con un dispositivo móvil, utilicé una computadora de preferencia",
         icon: "info"
       })
-      
-   }else{
-     console.log("nooo");
-     console.log(navigator.userAgent);
-   }
+
+    } else {
+      console.log("nooo");
+      console.log(navigator.userAgent);
+    }
 
   }
 
@@ -686,12 +686,12 @@ export class CreateAppComponent implements OnInit {
       const colorAnterior = event.container.data[event.currentIndex]['color'];
       const imagenAnterior = event.container.data[event.currentIndex]['imagen'];
       const imagen2Anterior = event.container.data[event.currentIndex]['imagen2'];
-      const imagen3Anterior = event.container.data[event.currentIndex]['imagen3'];      
-      
+      const imagen3Anterior = event.container.data[event.currentIndex]['imagen3'];
+
       this[`${botones}`].splice(event.previousIndex, 0, { icon: `${iconoAnterior}`, texto: `${textoAnterior}`, bg: `${bgAnterior}`, color: `${colorAnterior}`, imagen: `${imagenAnterior}`, imagen2: `${imagen2Anterior}`, imagen3: `${imagen3Anterior}` });
-      
+
       this.botonesDrop[event.currentIndex].resp = respuestasAnterior;
-      
+
       this.botonesDrop.splice(event.currentIndex + 1, 1)
 
 
@@ -782,7 +782,7 @@ export class CreateAppComponent implements OnInit {
     let valor = 0;
     let botones = '';
     console.log(event.previousContainer);
-    
+
 
     if (event.previousContainer.id == "cdk-drop-list-0" || event.previousContainer.id == "cdk-drop-list-1" || event.previousContainer.id == "cdk-drop-list-2") {
 
@@ -948,7 +948,7 @@ export class CreateAppComponent implements OnInit {
 
     let cImagenes = 0;
     let cBotones = 0;
-    console.log( this[`${btnSeleccionado}`]);
+    console.log(this[`${btnSeleccionado}`]);
     this[`${btnSeleccionado}`].map(respu => {
       // console.log(respu);
 
@@ -970,7 +970,7 @@ export class CreateAppComponent implements OnInit {
       }
 
     })
-    
+
 
 
     if (cImagenes == 4) {
@@ -987,7 +987,7 @@ export class CreateAppComponent implements OnInit {
       this.warningDropImagenes("Debe asignar botones y su respectiva respuesta al menú gráfico", "Advertencia")
       return
     }
-    if (this.anunciosDrop[0].id && this.anunciosDrop[1].id && this.anunciosDrop[2].id && this.anunciosDrop[3].id  ) {
+    if (this.anunciosDrop[0].id && this.anunciosDrop[1].id && this.anunciosDrop[2].id && this.anunciosDrop[3].id) {
       //Iria un boolean para mostrar un mensaje en de que debe seleccion imagenes para botones
       console.log("Hay anuncios asignados, contador");
     } else {
@@ -995,11 +995,11 @@ export class CreateAppComponent implements OnInit {
       return
     }
 
-    
+
 
     //Falta validar el carrusel de imagenes
 
-    if (cImagenes == 4 && cImagenes == 4 && (this.anunciosDrop[0].id && this.anunciosDrop[1].id && this.anunciosDrop[2].id && this.anunciosDrop[3].id) ) {
+    if (cImagenes == 4 && cImagenes == 4 && (this.anunciosDrop[0].id && this.anunciosDrop[1].id && this.anunciosDrop[2].id && this.anunciosDrop[3].id)) {
       //Se completaria y madaria la generación del QR
       console.log("hay imahenes y bltones completos yyyy anuncios");
 
@@ -1020,23 +1020,23 @@ export class CreateAppComponent implements OnInit {
         Swal.fire({
           allowOutsideClick: false,
           icon: 'info',
-          text: 'Subiendo imagen y guardanto información, espere un momento, por favor...'
+          text: 'Subiendo imagen y guardando información, espere un momento, por favor...'
         });
         Swal.showLoading();
 
-        
+
         //Mandar bloque y hacer un modelo de datos para recibir los datos correspondientes
         this._auth.uploadImagen(data).pipe(
           concatMap(resp => {
             console.log(resp);
             this.menuModel.anuncios[this.posicionAnuncio4].imagen = resp.secure_url
             // this.anunciosDrop[this.posicionAnuncio4].imagen = resp.secure_url
-            console.log( this.anunciosDrop[this.posicionAnuncio4].imagen );
+            console.log(this.anunciosDrop[this.posicionAnuncio4].imagen);
             console.log(this.menuModel);
-            
-            
+
+
             return this._auth.guardarDatosIdr(this.menuModel)
-            
+
           })
         ).subscribe(resp => {
           console.log(resp)
@@ -1057,12 +1057,12 @@ export class CreateAppComponent implements OnInit {
         }
         )
 
-      }else{
+      } else {
 
         Swal.fire({
           allowOutsideClick: false,
           icon: 'info',
-          text: 'Guardanto información, espere un momento, por favor...'
+          text: 'Guardando información, espere un momento, por favor...'
         });
         Swal.showLoading();
 
@@ -1078,7 +1078,7 @@ export class CreateAppComponent implements OnInit {
           this.booleanQR = true;
           console.log(this.menuModel);
           console.log(this[`${btnSeleccionado}`]);
-          
+
           //contra z(Fn2JETUa
           //617a3a6c3931ce2c381113e1
           //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2EzYTZjMzkzMWNlMmMzODExMTNlMSIsImVtYWlsIjoiaWRyLmVubGluZWFAZ21haWwuY29tIiwiZXhwIjoxNjQzODUzNTQ2LCJpYXQiOjE2MzYwNzc1NDZ9.Y6aX3ZADl7VkMh8QfgOjoDPwcW_6pEOvVrjho0uzBD0
@@ -1095,13 +1095,13 @@ export class CreateAppComponent implements OnInit {
 
   }
 
-  errorsToastr(mensaje: string, titulo:string){
+  errorsToastr(mensaje: string, titulo: string) {
     this.toastr.error(`${mensaje}`, `${titulo}`, {
       timeOut: 5000,
     });
   }
 
-  warningDropImagenes(mensaje: string, titulo: string){
+  warningDropImagenes(mensaje: string, titulo: string) {
     this.toastr.warning(`${mensaje}`, `${titulo}`, {
       timeOut: 5000,
     });
@@ -1405,7 +1405,7 @@ export class CreateAppComponent implements OnInit {
   onfileChange(event) {
     // console.log('img: ', event);
 
-    
+
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       if (file.type.includes("image/jpeg")) {
@@ -1424,18 +1424,19 @@ export class CreateAppComponent implements OnInit {
           this.anunciosDrag[3].imagen = reader.result;
         }.bind(this);
 
-      }else{
-        event.srcElement.value = "" 
+      } else {
+        this.warningDropImagenes("Solo acepta imagenes formato .jpeg", "Formato de imagenes")
+        event.srcElement.value = ""
       }
     }
 
   }
 
 
-  async cerrarSesion(){
-     let cerrar = await this._auth.cerrarSesion()
-     console.log(cerrar);
-    window.location.href="https://solucionesavanzadasyserviciosdigitales.com/"
+  async cerrarSesion() {
+    let cerrar = await this._auth.cerrarSesion()
+    console.log(cerrar);
+    window.location.href = "https://solucionesavanzadasyserviciosdigitales.com/"
   }
 
 

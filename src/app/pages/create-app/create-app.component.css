@@ -103,8 +103,20 @@
     max-width: 200px;
   }
 
+  .marginClase .fs-5{
+    font-size: 12px!important;
+  }
+
+  .marginClase .form-tex, .marginClase2 .form-text{
+    font-size: 8px;
+  }
+
+  .marginClase .fs-3, .marginClase2 .fs-3{
+    font-size: 1rem!important;
+  }
+
   .boton-rectangulo{
-    height: 15px;
+    height: 20px;
   }
   
   .boton-rectangulo-img{

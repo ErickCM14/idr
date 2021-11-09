@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
   arrayTelefonos: any = []
   arrayDominios: any = []
   arrayEmpresas: any = []
+  cargandoFiltros: boolean = true;
   private _id: string;
 
   constructor(private auth: AuthService, private fb: FormBuilder, private router: Router) { }
@@ -57,7 +58,7 @@ export class LoginComponent implements OnInit {
       this.arrayDominios = resp[0].dominios
       this.arrayEmpresas = resp[0].empresas
       console.log(this.arrayDominios, this.arrayTelefonos, this.arrayEmpresas);
-
+      this.cargandoFiltros=false
     }, error => {
       console.log(error);
     })
@@ -90,14 +91,18 @@ export class LoginComponent implements OnInit {
     return this.registroForm.controls[campo].errors && this.registroForm.controls[campo].touched;
   }
 
-  guardarRegistro() {
+  async guardarRegistro() {
     if (this.registroForm.invalid) { this.registroForm.markAllAsTouched(); return }
 
-    let emailFind = this.arrayTelefonos.find(element => element == this.registroForm.value['telefono'])
-    let empresaFind = this.arrayEmpresas.find(element => element == this.registroForm.value['empresa'])
-    let dominioFind = this.arrayDominios.find(element => this.registroForm.value['email'].includes(element))
+    let telefonoFind = await this.arrayTelefonos.find(element => element == this.registroForm.value['telefono'])
+    let empresaFind = await this.arrayEmpresas.find(element => element.toLowerCase() == this.registroForm.value['empresa'].toLowerCase())
+    let dominioFind = await this.arrayDominios.find(element => this.registroForm.value['email'].includes(element.toLowerCase()) )
 
-    if (emailFind || !dominioFind || !empresaFind) {
+    console.log(telefonoFind);
+    console.log(empresaFind);
+    console.log(dominioFind);    
+
+    if (telefonoFind || dominioFind || empresaFind) {
       Swal.fire({
         allowOutsideClick: false,
         icon: 'info',

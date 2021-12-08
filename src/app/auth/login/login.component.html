@@ -1,55 +1,102 @@
-<div class="contenedor pt-5" *ngIf="!cargandoFiltros">
+<div class="contenedor pt-2">
     <div class="container padding-container">
-        <h1 class="text-center pt-3 mb-3 fs-3" style="color:#2B6EAB; font-weight: 700;">IDR - Demo en Línea</h1>
+        <h1 class="text-center pt-2 fs-4" style="color:#2B6EAB; font-weight: 700; margin: 0;">IDR - Demo en Línea</h1>
+        <h2 class="text-center mb-2 fs-6" style="color:#2B6EAB; font-weight: 700;">Interactive Digital Response</h2>
 
-        <div class="container row mt-5">
-            <div class="col-6">
-
+        <div class="banderas">
+            <button class="btn me-3 p-0" style="z-index:100" >
+                <img src="../../../assets/bandera-inglesa-header.png" alt="Bandera inglesa">
+            </button>
+            <button class="btn p-0" style="z-index:100" >
+                <img src="../../../assets/bandera-espanola-header.png" alt="Bandera española">
+            </button>
+        </div>
+        <div class="container row mt-3">
+            <div class="col-6 pt-3 pb-3 position-relative">
                 <form [formGroup]="registroForm" (ngSubmit)="guardarRegistro()" autocomplete="off"
-                    class="d-flex flex-column mb-3 align-items-start">
+                    class="d-flex flex-column mb-2 align-items-start">
 
-                    <div class="col-12 mb-3">
-                        <input type="text" formControlName="nombre" name="nombre" class="form-control" id="formNombre"
+                    <p class="text-center w-100 fs-5"><strong>CREE SU PROPIA DEMO DE IDR EN LÍNEA</strong></p>
+
+                    <div class="col-12 mb-2">
+                        <input type="text" formControlName="nombre" name="nombre" class="form-control form-control-sm" id="formNombre"
                             placeholder="*Nombre(s)">
                         <span *ngIf="getErroresRegistro('nombre')" class="form-text text-danger">*Este campo es
                             requerido</span>
                     </div>
-                    <div class="col-12 mb-3">
-                        <input type="text" formControlName="apellido" name="apellido" class="form-control"
+                    <div class="col-12 mb-2">
+                        <input type="text" formControlName="apellido" name="apellido" class="form-control form-control-sm"
                             id="formApellido" placeholder="*Apellido(s)">
                         <span *ngIf="getErroresRegistro('apellido')" class="form-text text-danger">*Este campo es
                             requerido</span>
                     </div>
-                    <div class="col-12 mb-3">
-                        <input type="text" formControlName="empresa" name="empresa" class="form-control"
+                    <div class="col-12 mb-2">
+                        <input type="text" formControlName="empresa" name="empresa" class="form-control form-control-sm"
                             id="formEmpresa" placeholder="*Empresa">
                         <span *ngIf="getErroresRegistro('empresa')" class="form-text text-danger">*Este campo es
                             requerido</span>
                     </div>
-                    <div class="col-12 mb-3">
-                        <div class="input-group">
-                            <span class="input-group-text" id="basic-addon1">+52</span>
+                    <div class="col-12 mb-2">
+                        <div class="input-group input-group-sm">
+                            <!-- <span class="input-group-text" id="basic-addon1">+52</span> -->
+                          <select name="lada" id="" class="input-group-text" formControlName="lada">
+                              <option>+52</option>
+                              <option>+54</option>
+                              <option>+501</option>
+                              <option>+591</option>
+                              <option>+55</option>
+                              <option>+1</option>
+                              <option>+56</option>
+                              <option>+57</option>
+                              <option>+506</option>
+                              <option>+53</option>
+                              <option>+593</option>
+                              <option>+503</option>
+                              <option>+502</option>
+                              <option>+504</option>
+                              <option>+505</option>
+                              <option>+507</option>
+                              <option>+595</option>
+                              <option>+51</option>
+                              <option>+598</option>
+                              <option>+58</option>
+                          </select>
                             <input type="tel" formControlName="telefono" name="telefono" class="form-control"
-                                id="formTel" placeholder="*Número telefónico (móvil)">
+                                id="formTel" placeholder="*Número telefónico (móvil)" aria-label="Text input with dropdown button">
                         </div>
                         <span *ngIf="getErroresRegistro('telefono')" class="form-text text-danger">*Ingrese un número
                             telefónico válido</span>
                     </div>
-                    <div class="col-12 mb-3">
-                        <input type="email" formControlName="email" name="email" class="form-control" id="formEmail"
+                    <div class="col-12 mb-2">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="lada2" placeholder="Lada" formControlName="lada2" class="input-group-text" style="width: 75px; background-color: white;">
+                            <input type="tel" name="telefono2" class="form-control" formControlName="telefono2"
+                                id="formTel2" placeholder="*Número telefónico (móvil) Otros países" aria-label="Text input with dropdown button">
+                        </div>
+                        <span *ngIf="getErroresRegistro('telefono2')" class="form-text text-danger">*Ingrese un número
+                            telefónico válido</span>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <input type="email" formControlName="email" name="email" class="form-control form-control-sm" id="formEmail"
                             placeholder="*E-mail (empresarial)">
                         <span *ngIf="getErroresRegistro('email')" class="form-text text-danger">*Ingrese un email
                             válido</span>
                     </div>
 
-                    <div class="col-12">
-                        <p *ngIf="esRestringido" class="text-danger text-center">Fuera de servicio</p>
+                    <div class="col-12 d-flex justify-content-center">
+                            <p class="me-2 mb-0 fs-6">Acepto los <a [routerLink]="['/idr', 'politicas-de-privacidad']" class="" style="text-decoration: none;" >Términos de Privacidad</a></p>
+                            <input class="form-check-input" type="checkbox" (change)="cambioCheck($event)" formControlName="politicas" value="" aria-label="Checkbox for following text input">
+                    </div>
+                    <p *ngIf="!politicasBoolean" class="form-text text-center text-danger m-0 ">*Debe aceptar las politicas de privacidad</p>
+<!-- !politicasBoolean -->
+                    <div class="col-12 mt-2 mb-2">
+                        <button type="submit" class="btn btn-secondary btn-sm w-100" [disabled]="cargandoFiltros">
+                            ENVIAR CONTRASEÑA POR E-MAIL
+                        </button>
                     </div>
 
-                    <div class="col-12 mb-3">
-                        <button type="submit" class="btn btn-secondary w-100">
-                            ENVIAR SMS
-                        </button>
+                    <div class="col-12">
+                        <p *ngIf="esRestringido" class="text-danger text-center">Out of service</p>
                     </div>
 
                 </form>
@@ -58,21 +105,21 @@
 
                 <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" autocomplete="off">
 
-                    <div class="col-12 mb-3">
-                        <input type="email" formControlName="email" name="email" class="form-control" id="formUsuario"
+                    <div class="col-12 mb-2">
+                        <input type="email" formControlName="email" name="email" class="form-control form-control-sm" id="formUsuario"
                             placeholder="Usuario">
                         <span *ngIf="getErroresLogin('email')" class="form-text text-danger">*Debe ingresar
                             correctamente su usuario</span>
                     </div>
-                    <div class="col-12 mb-3">
+                    <div class="col-12 mb-2">
                         <div class="input-group m-0 p-0">
-                            <input *ngIf="!mostrarContrasena" type="password" formControlName="password" name="password" class="form-control"
+                            <input *ngIf="!mostrarContrasena" type="password" formControlName="password" name="password" class="form-control form-control-sm"
                                 id="formPassword" placeholder="Clave (password)">
 
                             <input *ngIf="mostrarContrasena" type="text" name="password" formControlName="password"
-                                class="form-control" id="formPassword" placeholder="Clave (password)">
+                                class="form-control form-control-sm" id="formPassword" placeholder="Clave (password)">
 
-                            <button type="button" class="btn btn-light"
+                            <button type="button" class="btn btn-light btn-sm"
                                 (click)="mostrarContrasena = !mostrarContrasena">
                                 <i *ngIf=mostrarContrasena class="bi bi-eye-slash-fill"></i>
                                 <i *ngIf=!mostrarContrasena class="bi bi-eye-fill"></i>
@@ -83,8 +130,8 @@
                             requerido</span>
                     </div>
 
-                    <div class="col-12 mb-3">
-                        <button type="submit" class="btn btn-secondary w-100">
+                    <div class="col-12 mb-2">
+                        <button type="submit" class="btn btn-secondary btn-sm w-100">
                             INGRESAR
                         </button>
                     </div>
@@ -96,21 +143,21 @@
 
 
 
-            <div class="col-6">
-                <div class="d-flex flex-column justify-content-end align-items-end">
-                    <picture class="text-center">
-                        <img src="../../../assets/login/IDR.png" alt="IDR" class="w-100">
+            <div class="col-6 pt-3">
+                <p class="text-center w-100 fs-5 mb-0"><strong>RESPUESTA DIGITAL INTERACTIVA <br/>
+                    IDR
+                    </strong></p>
+                <div class="d-flex flex-column justify-content-center align-items-center ">
+                    <picture class="text-center" style="max-width: 450px;">
+                        <img src="../../../assets/login/IDR.PNG" alt="IDR" class="w-100" >
                     </picture>
 
-                    <picture class="d-flex justify-content-end align-items-center gap-3">
+                    <!-- <picture class="d-flex justify-content-end align-items-center gap-3">
                         <img src="../../../assets/login/IDR-SASDSA.png" alt="IDR SASDSA" class="">
                         <img src="../../../assets/login/QR.png" alt="QR">
-                    </picture>
-
+                    </picture> -->
+                    <p class="text-center w-100 fs-5 mt-5" style="color: #4D83B5;">SOLUCIONES AVANZADAS Y SERVICIOS DIGITALES</p>
                 </div>
-
-
-
 
             </div>
 

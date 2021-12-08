@@ -7,41 +7,62 @@
 
 </div> -->
 
-<main *ngIf="!cargando" class="container mt-5 pt-5 mb-5">
+<div id="activador" class="fs-2"></div>
+<main *ngIf="!cargando" class="container mt-2 mb-0">
+
+    <div class="banderas container marginClase d-flex justify-content-end" style="margin-right: 30px; margin-bottom: 10px;">
+        <!-- <picture class="me-2" style="float: right;"> -->
+        <button class="btn p-0 me-3" style="z-index: 100;">
+            <img src="../../../assets/bandera-inglesa.png" class="w-100" style="height: 22px;" alt="Bandera inglesa">
+        </button>
+        <!-- </picture> -->
+        <!-- <picture style="float: right;"> -->
+        <button class="btn p-0 m-0" style="z-index: 100;">
+            <img src="../../../assets/bandera-espanola.png" class="w-100" style="height: 22px;" alt="Bandera española">
+        </button>
+        <!-- </picture> -->
+    </div>
 
 
     <div *ngIf="bloque == 1" class="container marginClase">
+
         <div class="d-flex flex-column align-items-center">
             <div *ngFor="let dato of datos  | slice:0:4; let i = index" style="width: 100%" class="gap-2">
-                <button [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo" [routerLink]="['/idr', this._id, this.datos[i].resp[0]?.id ]">
-                    <picture>
+                <div [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
+                    class="btn w-100 p-0 fs-6 mb-2 boton-rectangulo"
+                    [routerLink]="['/idr', this._id, this.datos[i].resp[0]?.id ]">
+                    <!-- <picture> -->
                         <img [src]="dato.imagen" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                            style="width: 30px;" clase="w-25" alt="">
-                    </picture>
-                    {{dato.texto}}
-                </button>
+                            
+                            style="width: 18px; float: left; margin-left: 35%; margin-right: 5px;" class="botones-alineados-padding" alt="">
+                            <!-- style="width: 20px;" clase="w-25" alt=""> -->
+                    <!-- </picture> -->
+                    <span style="float: left;">{{dato.texto}}</span>
+                </div>
             </div>
             <div *ngFor="let dato of datos | slice:4:8; let i = index" style="width: 100%" class="gap-2">
                 <button *ngIf="1 >= i" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
                     class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo">
                 </button>
                 <button *ngIf="i == 1" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo">
-                    <span class="text-white me-3">Atención por IVR</span> 
+                    class="btn w-100 p-0 fs-6 mb-2 boton-rectangulo">
+                    <span class="me-3">Atención por IVR</span>
                     <picture>
-                        <img src="../../../assets/redes-sociales/IVR.png" class="me-2" style="width: 35px;" alt="IVR">
+                        <img src="../../../assets/redes-sociales/IVR.png" class="me-2" style="width: 30px;" alt="IVR">
                     </picture>
                 </button>
                 <button *ngIf="i == 2" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo">
-                    <span class="text-white me-3">Redes sociales</span> 
+                    class="btn w-100 p-0 fs-6 mb-2 boton-rectangulo">
+                    <span class="me-3">Redes sociales</span>
                     <picture>
-                        <img src="../../../assets/redes-sociales/Facebook.png" class="me-2" style="width: 35px;" alt="Facebook">
-                        <img src="../../../assets/redes-sociales/Instagram.png" class="me-2" style="width: 35px;" alt="Instagram">
-                        <img src="../../../assets/redes-sociales/Twitter.png" class="me-2" style="width: 35px;" alt="Twitter">
-                        <img src="../../../assets/redes-sociales/Youtube.png" style="width: 35px;" alt="youtube">
-                    </picture>    
+                        <img src="../../../assets/redes-sociales/Facebook.png" class="me-2" style="width: 20px;"
+                            alt="Facebook">
+                        <img src="../../../assets/redes-sociales/Instagram.png" class="me-2" style="width: 20px;"
+                            alt="Instagram">
+                        <img src="../../../assets/redes-sociales/Twitter.png" class="me-2" style="width: 20px;"
+                            alt="Twitter">
+                        <img src="../../../assets/redes-sociales/Youtube.png" style="width: 20px;" alt="youtube">
+                    </picture>
                 </button>
             </div>
         </div>
@@ -51,44 +72,46 @@
         <div class="mt-2 gap-2" style="width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr;">
             <div *ngFor="let dato of datos | slice:0:3 ; let i = index" style="width: 100%;" class="text-center">
                 <button type="button" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 fs-3 boton-cuadrado" [routerLink]="['/idr', this._id, this.datos[i].resp[0].id ]">
+                    class="btn fs-6 boton-cuadrado" [routerLink]="['/idr', this._id, this.datos[i].resp[0].id ]">
                     <picture>
-                        <img [src]="dato.imagen2" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}" alt="">
+                        <img [src]="dato.imagen2" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
+                            style="width: 30px;" alt="">
                     </picture>
                 </button>
-                <span style="font-size: 12px;">{{dato.texto}}</span>
+                <p style="font-size: 12px; margin: 0;">{{dato.texto}}</p>
             </div>
             <div *ngFor="let dato of datos | slice:3:4 ; let i = index" style="width: 100%;" class="text-center">
                 <button type="button" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 fs-3 boton-cuadrado">
+                    class="btn fs-3 boton-cuadrado">
                 </button>
             </div>
             <div *ngFor="let dato of datos | slice:4:5 ; let i = index" style="width: 100%;" class="text-center">
                 <button type="button" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 fs-3 boton-cuadrado" [routerLink]="['/idr', this._id, this.datos[i+4].resp[0].id ]">
+                    class="btn fs-6 boton-cuadrado" [routerLink]="['/idr', this._id, this.datos[i+4].resp[0].id ]">
                     <picture>
-                        <img [src]="dato.imagen2" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}" alt="">
+                        <img [src]="dato.imagen2" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
+                            style="width: 30px;" alt="">
                     </picture>
                 </button>
-                <span style="font-size: 12px;">{{dato.texto}}</span>
+                <p style="font-size: 12px; margin: 0;">{{dato.texto}}</p>
             </div>
             <div *ngFor="let dato of datos | slice:5:12 ; let i = index" style="width: 100%;" class="text-center">
                 <button type="button" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 fs-3 boton-cuadrado">
+                    class="btn fs-6 boton-cuadrado mb-2">
                     <picture *ngIf="i == 1">
-                        <img src="../../../assets/redes-sociales/Facebook.png" style="width: 50px;" alt="Facebook">
+                        <img src="../../../assets/redes-sociales/Facebook.png" style="width: 30px;" alt="Facebook">
                     </picture>
                     <picture *ngIf="i == 2">
-                        <img src="../../../assets/redes-sociales/IVR.png" style="width: 50px;" alt="IVR">
+                        <img src="../../../assets/redes-sociales/IVR.png" style="width: 30px;" alt="IVR">
                     </picture>
                     <picture *ngIf="i == 3">
-                        <img src="../../../assets/redes-sociales/Instagram.png" style="width: 50px;" alt="Instagram">
+                        <img src="../../../assets/redes-sociales/Instagram.png" style="width: 30px;" alt="Instagram">
                     </picture>
                     <picture *ngIf="i == 4">
-                        <img src="../../../assets/redes-sociales/Twitter.png" style="width: 50px;" alt="Twitter">
+                        <img src="../../../assets/redes-sociales/Twitter.png" style="width: 30px;" alt="Twitter">
                     </picture>
                     <picture *ngIf="i == 6">
-                        <img src="../../../assets/redes-sociales/Youtube.png" style="width: 50px;" alt="Youtube">
+                        <img src="../../../assets/redes-sociales/Youtube.png" style="width: 30px;" alt="Youtube">
                     </picture>
                 </button>
             </div>
@@ -101,92 +124,101 @@
         <div class="mt-2 gap-2" style="width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr;">
             <div *ngFor="let dato of datos | slice:0:1; let i = index" style="width: 100%;" class="text-center">
                 <button type="button" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 fs-3 boton-cuadrado" [routerLink]="['/idr', this._id, this.datos[i].resp[0].id ]">
+                    class="btn boton-cuadrado" [routerLink]="['/idr', this._id, this.datos[i].resp[0].id ]">
                     <picture>
-                        <img [src]="dato.imagen2" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}" alt="">
+                        <img [src]="dato.imagen2" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
+                            style="width: 30px;" alt="">
                     </picture>
                 </button>
-                <span style="font-size: 12px;">{{dato.texto}}</span>
+                <p style="font-size: 12px; margin:0;">{{dato.texto}}</p>
             </div>
             <div *ngFor="let dato of datos | slice:1:2; let i = index" style="width: 100%;" class="text-center">
                 <button type="button" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 fs-3 boton-cuadrado">
+                    class="btn fs-3 boton-cuadrado">
                 </button>
             </div>
             <div *ngFor="let dato of datos | slice:2:3; let i = index" style="width: 100%;" class="text-center">
                 <button type="button" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 fs-3 boton-cuadrado" [routerLink]="['/idr', this._id, this.datos[i+2].resp[0].id ]">
+                    class="btn boton-cuadrado" [routerLink]="['/idr', this._id, this.datos[i+2].resp[0].id ]">
                     <picture>
-                        <img [src]="dato.imagen2" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}" alt="">
+                        <img [src]="dato.imagen2" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
+                            style="width: 30px;" alt="">
                     </picture>
                 </button>
-                <span style="font-size: 12px;">{{dato.texto}}</span>
+                <p style="font-size: 12px; margin: 0;">{{dato.texto}}</p>
             </div>
             <div *ngFor="let dato of datos | slice:3:6; let i = index" style="width: 100%;" class="text-center">
                 <button type="button" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 fs-3 boton-cuadrado">
+                    class="btn fs-3 boton-cuadrado">
                 </button>
             </div>
         </div>
 
         <div class="d-flex flex-column align-items-center mt-3">
             <div *ngFor="let dato of datos | slice:6:7; let i = index" style="width: 100%" class="gap-2">
-                <button [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo" [routerLink]="['/idr', this._id, this.datos[i+6].resp[0].id ]">
+                <div [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
+                    class="btn w-100 p-0 mb-2 boton-rectangulo"
+                    [routerLink]="['/idr', this._id, this.datos[i+6].resp[0].id ]">
                     <picture>
                         <img [src]="dato.imagen" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                            style="width: 30px;" clase="w-25" alt="">
+                        style="width: 18px; float: left; margin-left: 35%; margin-right: 5px;" class="botones-alineados-padding" alt="">
+                            <!-- style="width: 20px;" clase="w-25" alt=""> -->
                     </picture>
-                    {{dato.texto}}
-                </button>
+                    <span style="float: left;">{{dato.texto}}</span>
+                </div>
             </div>
             <div *ngFor="let dato of datos | slice:7:8; let i = index" style="width: 100%" class="gap-2">
                 <button [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo" [routerLink]="['/idr', this._id, this.datos[i+7].resp[0].id ]">
+                    class="btn w-100 p-0 mb-2 boton-rectangulo"
+                    [routerLink]="['/idr', this._id, this.datos[i+7].resp[0].id ]">
                     <picture>
                         <img [src]="dato.imagen" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                            style="width: 30px;" clase="w-25" alt="">
+                        style="width: 18px; float: left; margin-left: 35%; margin-right: 5px;" class="botones-alineados-padding" alt="">
                     </picture>
-                    {{dato.texto}}
+                    <span style="float: left;">{{dato.texto}}</span>
                 </button>
             </div>
             <div *ngFor="let dato of datos | slice:8:10; let i = index" style="width: 100%" class="gap-2">
                 <button [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo" >
+                    class="btn w-100 p-0 fs-6 mb-2 boton-rectangulo">
                     <button *ngIf="i == 0" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo">
-                    <span class="text-white me-3">Atención por IVR</span> 
-                    <picture>
-                        <img src="../../../assets/redes-sociales/IVR.png" class="me-2" style="width: 35px;" alt="IVR">
-                    </picture>
-                </button>
-                <button *ngIf="i == 1" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo">
-                    <span class="text-white me-3">Redes sociales</span> 
-                    <picture>
-                        <img src="../../../assets/redes-sociales/Facebook.png" class="me-2" style="width: 35px;" alt="Facebook">
-                        <img src="../../../assets/redes-sociales/Instagram.png" class="me-2" style="width: 35px;" alt="Instagram">
-                        <img src="../../../assets/redes-sociales/Twitter.png" class="me-2" style="width: 35px;" alt="Twitter">
-                        <img src="../../../assets/redes-sociales/Youtube.png" style="width: 35px;" alt="Youtube">
-                    </picture>    
-                </button>
+                        class="btn w-100 p-0 fs-6 mb-2 boton-rectangulo">
+                        <span class="me-3">Atención por IVR</span>
+                        <!-- <picture> -->
+                        <img src="../../../assets/redes-sociales/IVR.png" class="me-2" style="width: 30px;" alt="IVR">
+                        <!-- </picture> -->
+                    </button>
+                    <button *ngIf="i == 1" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
+                        class="btn w-100 p-0 fs-6 mb-2 boton-rectangulo">
+                        <span class="me-3">Redes sociales</span>
+                        <picture>
+                            <img src="../../../assets/redes-sociales/Facebook.png" class="me-2" style="width: 20px;"
+                                alt="Facebook">
+                            <img src="../../../assets/redes-sociales/Instagram.png" class="me-2" style="width: 20px;"
+                                alt="Instagram">
+                            <img src="../../../assets/redes-sociales/Twitter.png" class="me-2" style="width: 20px;"
+                                alt="Twitter">
+                            <img src="../../../assets/redes-sociales/Youtube.png" style="width: 20px;" alt="Youtube">
+                        </picture>
+                    </button>
                 </button>
             </div>
         </div>
 
     </div>
 
-    <div *ngIf="bloque == 4" class="container marginClase">
+    <div id="holas" *ngIf="bloque == 4" class="container marginClase" style="max-width:280px">
 
         <div class="mt-2 container gap-2"
             style="width: 100%; display: grid; grid-template-columns: 1fr 1fr 1fr; margin: 0 auto;">
-            <div *ngFor="let dato of datos | slice:0:3; let i = index" style=" width: 100%; height: 170px;">
+            <div *ngFor="let dato of datos | slice:0:3; let i = index" style=" width: 100%; height: 110px;">
                 <button type="button" [ngStyle]="{'background-color': dato.bg, 'color': dato.color }"
-                    style="font-size: 14px; height: 100%;" class="btn w-100 p-0" [routerLink]="['/idr', this._id, this.datos[i].resp[0].id ]">
-                    <p>{{dato.texto}}</p>
+                    style="font-size: 14px; height: 100%;" class="btn w-100 p-0"
+                    [routerLink]="['/idr', this._id, this.datos[i].resp[0].id ]">
+                    <p style="margin: 0;">{{dato.texto}}</p>
                     <picture>
                         <img [src]="dato.imagen3" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}" alt=""
-                            style="width: 60px;">
+                            style="width: 40px;">
                     </picture>
 
                 </button>
@@ -195,42 +227,45 @@
 
         <div class="mt-2 container gap-2"
             style="width: 100%; display: grid; grid-template-columns: 2fr 1fr; margin: 0 auto;">
-            <div *ngFor="let dato of datos | slice:3:4; let i = index" style=" width: 100%; height: 170px;"
+            <div *ngFor="let dato of datos | slice:3:4; let i = index" style=" width: 100%; height: 110px;"
                 class="gap-2">
                 <button type="button" [ngStyle]="{'background-color': dato.bg, 'color': dato.color }"
-                    class="btn w-100 p-0 boton-rectangulo-img">
+                    class="btn p-0 boton-rectangulo-img">
                     <picture>
-                        <img src="../../../assets/redes-sociales/IVR.png" class="me-2" style="width: 45px;" alt="IVR">
+                        <img src="../../../assets/redes-sociales/IVR.png" class="me-2" style="width: 25px;" alt="IVR">
                     </picture>
-                    <span class="text-white me-3 fs-4">Atención por IVR</span> 
+                    <span class="me-3 " style="font-size: 14px;">Atención por IVR</span>
                 </button>
             </div>
 
             <div *ngFor="let dato of datos | slice:4:5; let i = index" style=" width: 100%;" class="gap-2">
                 <button type="button" [ngStyle]="{'background-color': dato.bg, 'color': dato.color }"
-                    style="font-size: 14px;" class="btn w-100 p-0 boton-rectangulo-img" [routerLink]="['/idr', _id, this.datos[4].resp[0].id ]">
-                    <p>{{dato.texto}}</p>
+                    style="font-size: 14px;" class="btn w-100 p-0 boton-rectangulo-img"
+                    [routerLink]="['/idr', _id, this.datos[4].resp[0].id ]">
+                    <p style="margin: 0;"> {{dato.texto}}</p>
                     <picture>
                         <img [src]="dato.imagen3" [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                            style="width: 60px;" alt="">
+                            style="width: 40px;" alt="">
                     </picture>
                 </button>
             </div>
         </div>
 
         <div class="d-flex container justify-content-center mt-2">
-            <div *ngFor="let dato of datos | slice:5:6; let i = index" style="width: 100%; height: 120px;"
-                class="gap-2">
+            <div *ngFor="let dato of datos | slice:5:6; let i = index" style="width: 100%; height: 60px;" class="gap-2">
                 <button [ngStyle]="{'background-color': dato.bg, 'color': dato.color}"
-                    class="btn w-100 p-0 fs-4 mb-2 boton-rectangulo-img">
-                    <span class="text-white">Redes sociales</span>
-                    <br/>
+                    class="btn w-100 p-0 fs-6 boton-rectangulo-img">
+                    <span style="font-size: 14px;">Redes sociales</span>
+                    <br />
                     <picture>
-                        <img src="../../../assets/redes-sociales/Facebook.png" class="me-2" style="width: 40px;" alt="Facebook">
-                        <img src="../../../assets/redes-sociales/Instagram.png" class="me-2" style="width: 40px;" alt="Instagram">
-                        <img src="../../../assets/redes-sociales/Twitter.png" class="me-2" style="width: 40px;" alt="Twitter">
-                        <img src="../../../assets/redes-sociales/Youtube.png" style="width: 40px;" alt="Youtube">
-                    </picture>    
+                        <img src="../../../assets/redes-sociales/Facebook.png" class="me-3" style="width: 20px;"
+                            alt="Facebook">
+                        <img src="../../../assets/redes-sociales/Instagram.png" class="me-3" style="width: 20px;"
+                            alt="Instagram">
+                        <img src="../../../assets/redes-sociales/Twitter.png" class="me-3" style="width: 20px;"
+                            alt="Twitter">
+                        <img src="../../../assets/redes-sociales/Youtube.png" style="width: 20px;" alt="Youtube">
+                    </picture>
                 </button>
             </div>
         </div>
@@ -239,20 +274,25 @@
 
 </main>
 
-<footer class="position-static bottom-0 w-100" >
-    <div id="carouselExampleControls" class="carousel slide marginClase" data-bs-ride="carousel">
+<footer class="w-100">
+    <div id="carouselAnuncios" class="carousel slide marginClase mt-3" data-bs-ride="carousel">
         <div class="carousel-inner d-flex ">
-            <div class="carousel-item active" data-bs-interval="2000" > <!--data-bs-interval="2000" para los segundos-->
-                <img [src]="anuncios[0]?.imagen" class="d-block w-100" alt="...">
+            <div class="carousel-item active" data-bs-interval="4000">
+                <!--data-bs-interval="2000" para los segundos-->
+                <img *ngIf="!cargando" [src]="anuncios[0]?.imagen" class="d-block w-100" alt="..."
+                    style="max-height: 140px; min-height: 100px;">
             </div>
-            <div class="carousel-item" data-bs-interval="2000"> 
-                <img [src]="anuncios[1]?.imagen" class="d-block w-100" alt="...">
+            <div class="carousel-item" data-bs-interval="4000">
+                <img *ngIf="!cargando" [src]="anuncios[1]?.imagen" class="d-block w-100" alt="..."
+                    style="max-height: 140px; min-height: 100px;">
             </div>
-            <div class="carousel-item" data-bs-interval="2000">
-                <img [src]="anuncios[2]?.imagen" class="d-block w-100" alt="...">
+            <div class="carousel-item" data-bs-interval="4000">
+                <img *ngIf="!cargando" [src]="anuncios[2]?.imagen" class="d-block w-100" alt="..."
+                    style="max-height: 140px; min-height: 100px;">
             </div>
-            <div class="carousel-item" data-bs-interval="2000">
-                <img [src]="anuncios[3]?.imagen" class="d-block w-100" alt="...">
+            <div class="carousel-item" data-bs-interval="4000">
+                <img *ngIf="!cargando" [src]="anuncios[3]?.imagen" class="d-block w-100" alt="..."
+                    style="max-height: 140px; min-height: 100px;">
             </div>
         </div>
 
@@ -260,7 +300,11 @@
 </footer>
 
 
-<div class="container marginClase d-flex justify-content-between w-100 mb-3">
-    <button type="button" class="btn btn-danger btn-sm w-25 mt-2" (click)="cerrarSesion()">Salir</button>
-    <img src="../../../assets/SASDSA.png" class="w-50" alt="" style="object-fit: contain;">
+<div class="container marginClase d-flex justify-content-between  w-100 mb-3 pt-2">
+    <button type="button" class="btn btn-sm w-25 mt-0" (click)="cerrarSesion()"
+        style="background-color: #F2F2F2; border: solid 2px gray;">Salir</button>
+    <div class="d-flex align-items-center" style="width:60%">
+        <span style="float: left; font-size: 12.5px;" class="me-2">Powered by </span>
+        <img src="../../../assets/Logo_SASDA.svg" class="w-50" alt="SAS-Digital" style="object-fit: contain;">
+    </div>
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 declare const Swal;
+declare const $: any;
 
 @Component({
   selector: 'app-menu',
@@ -50,33 +50,27 @@ export class MenuComponent implements OnInit {
       localStorage.setItem('token', this.token)
       localStorage.setItem('id', id)
       this.ejecutarPeticion()
-      console.log("Entro a tener queryparamas");
     } else {
       this.token = localStorage.getItem('token');
       this._id = id;
-      console.log(this._id)
-      console.log("No tiene queryparamas");
-      console.log(this.token);
       this.obtenerData()
     }
 
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    $("#carouselAnuncios").carousel();
+  }
 
   obtenerData() {
     const id = localStorage.getItem('id')
-    console.log(id);
-    
     let resp = JSON.parse(localStorage.getItem('data'))
-    console.log(resp);
-    
+
     if (!resp || this._id != id) {
       this.router.navigateByUrl('/login')
       return
     }
-    console.log(id)
-    console.log(this._id)
+
     this.anuncios = [...resp.anuncios]
     this.datos = [...resp.datos]
     this.bloque = resp.bloque
@@ -95,26 +89,16 @@ export class MenuComponent implements OnInit {
         return
       }
       this.anuncios = [...resp.anuncios]
-      console.log(resp);
-      console.log(resp.datos);
-      console.log(resp.anuncios);
 
       this.datos = [...resp.datos]
 
       this.bloque = resp.bloque
-
-      console.log(this.datos);
-      console.log(this.datos[0].resp[0].id);
-
-      console.log(this.anuncios);
-
 
       localStorage.setItem('data', JSON.stringify(resp))
       localStorage.setItem('anuncios', JSON.stringify(this.anuncios))
 
       this.cargando = false;
     }, error => {
-      console.log("Mandar un mensaje de que no exite o el token ha venciod y redirirlo a la una página para que cree u menu");
       Swal.fire({
         title: `Su sesión ha caducado`,
         text: 'Vuelva a iniciar sesión',
@@ -123,12 +107,12 @@ export class MenuComponent implements OnInit {
       this.router.navigateByUrl('/login')
 
       console.log(error);
+    }, () => {
     })
   }
 
   async cerrarSesion() {
     let cerrar = await this._auth.cerrarSesion()
-    console.log(cerrar);
     window.location.href = "https://solucionesavanzadasyserviciosdigitales.com/"
   }
 

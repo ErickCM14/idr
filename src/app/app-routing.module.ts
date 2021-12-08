@@ -8,10 +8,11 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 const routes: Routes = [
   
+  //  Sendgrid  ?T32M3*y!Yb[eVq1
   // idr.enlinea@gmail.com | uCBz^0WkQx
   // erickcarranzameza@gmail.com | DY7+k_Tv!l    inicio sesion
   // erick@erick.com | J¡Gcg,HM3v
-  // idr.enlinea@gmail.com | z(Fn2JETUa
+  // idr.enlinea@gmail.com | iME+sectKX   -ya no: z(Fn2JETUa
 
   // path: '/idr PagesRouting'
   // path: '/login' AuthRouting

@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { IlustracionesComponent } from './ilustraciones/ilustraciones.component';
 import { CreateAppComponent } from './create-app/create-app.component';
+import { PoliticasComponent } from './politicas/politicas.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CreateAppComponent } from './create-app/create-app.component';
     HomeComponent,
     MenuComponent,
     IlustracionesComponent,
-    CreateAppComponent
+    CreateAppComponent,
+    PoliticasComponent
   ],
   exports: [
     PagesComponent

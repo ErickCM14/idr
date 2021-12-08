@@ -1,0 +1,8 @@
+.contenedor{
+    background: linear-gradient(to right,  white 0%, white 72%, #EBF0F9 72%, #EBF0F9 100%) !important;
+    min-height: 100vh;
+}
+
+p{
+    text-align: justify;
+}

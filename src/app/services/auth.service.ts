@@ -13,12 +13,16 @@ import { catchError, map } from 'rxjs/operators';
 export class AuthService {
   private url = "https://idr-backend-c846inyxt-idr-enlinea.vercel.app/v1/"
   // private url = "http://localhost:4001/v1/"
-  private registrar = `${this.url}usuarios`;
+  // private urlEmails = "http://localhost:3000/"
+  private urlEmails = "https://idrenlinea-api.herokuapp.com/"
+  private registrar = `${this.url}usuarios/`;
   private login = `${this.url}usuarios/entrar`;
-  private emailRestringido = `${this.url}usuarios/usuario-restringido`;
+  // private emailRestringido = `${this.url}usuarios/usuario-restringido`;
   private idr = `${this.url}idr/`;
   private filtro = `${this.url}filtro/`;
   private urlCloudinary = "https://api.cloudinary.com/v1_1/idrenlinea/image/upload"
+  private enviarEmail = `${this.urlEmails}enviar-email`
+  private enviarAccesos = `${this.urlEmails}enviar-accesos`
 
   headers: any;
   token: string;
@@ -26,11 +30,9 @@ export class AuthService {
   valido: boolean = true;
 
   constructor(private http: HttpClient) {
-    console.log('service');
 
     this.token = localStorage.getItem('token')
     this._id = localStorage.getItem('id')
-    console.log(this._id, this.token);
 
     this.headers = {
       'Content-Type': 'application/json',
@@ -94,8 +96,16 @@ export class AuthService {
     return this.http.get(this.filtro)
   }
 
-  enviarEmailRestriccion(body: any): Observable<any>{
-    return this.http.post(this.emailRestringido, body)
+  // enviarEmailRestriccion(body: any): Observable<any>{
+  //   return this.http.post(this.emailRestringido, body)
+  // }
+
+  enviarEmailAccesos(body: any): Observable<any>{
+    return this.http.post(this.enviarAccesos, body)
+  }
+
+  enviarEmailIngreso(body: any): Observable<any>{
+    return this.http.post(this.enviarEmail, body)
   }
 
   uploadImagen(data: any): Observable<any> {

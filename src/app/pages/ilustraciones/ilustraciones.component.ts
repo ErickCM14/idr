@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+declare const $: any;
 
 @Component({
   selector: 'app-ilustraciones',
@@ -94,25 +95,15 @@ export class IlustracionesComponent implements OnInit {
     this.path = this.route.snapshot.url[0].path;
 
     this.anuncios = JSON.parse(localStorage.getItem('anuncios'))
-    console.log(this.anuncios);
 
-
-    // this.lugar = this.datos.find(element =>
-    //   Object.keys(element)[0] == this.id
-
-    // )
-
-    // this.lugar = Object.values(this.lugar)
-    // console.log(this.lugar[0]);
-
-    // console.log(Object.values(this.lugar) );
-
+    $("#carouselAnuncios2").carousel();
   }
+
 
   async cerrarSesion() {
     let cerrar = await this._auth.cerrarSesion()
-    console.log(cerrar);
     window.location.href = "https://solucionesavanzadasyserviciosdigitales.com/"
   }
+
 
 }

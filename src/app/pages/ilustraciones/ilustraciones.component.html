@@ -9,9 +9,27 @@
     <button type="button" class="btn btn-danger mt-3 w-25" [routerLink]="['/idr', this.path]">Regresar</button>
 
 </div> -->
-<main class="container pt-5 mb-5">
+<main class="container pt-2 mb-0 pb-0">
 
-    <div class="pt-5 ilustracion marginClase" style="margin: 0 auto;">
+    <div class="banderas container d-flex justify-content-end">
+        <!-- <picture class="me-2" style="float: left;"> -->
+        <button class="btn p-0 m-0 me-3" style="z-index: 101;">
+            <img src="../../../assets/bandera-inglesa.png" class="bandera w-100" style="height: 22px;"
+                alt="Bandera inglesa">
+        </button>
+
+        <!-- </picture> -->
+        <!-- <picture style="float: left;"> -->
+        <button class="btn p-0 m-0" style="z-index: 101;">
+            <img src="../../../assets/bandera-espanola.png" class="bandera w-100" style="height: 22px;"
+                alt="Bandera española">
+        </button>
+        <!-- </picture> -->
+    </div>
+
+    <div class="ilustracion marginClase mt-1" style="margin: 0 auto;">
+
+
         <picture>
             <a *ngIf="imagenes[this.id-1].enlace" href={{imagenes[this.id-1].enlace}}>
                 <img [src]="imagenes[this.id-1].imagen" class="w-100" alt="">
@@ -19,32 +37,43 @@
             <img *ngIf="!imagenes[this.id-1].enlace" [src]="imagenes[this.id-1].imagen" class="w-100" alt="">
         </picture>
 
-        <button type="button" class="btn btn-secondary mt-3 w-100" [routerLink]="['/idr', idUsuario]">Menu principal</button>
+        <button type="button" class="btn btn-secondary btn-sm mt-2 mb-0 p-0 w-100"
+            [routerLink]="['/idr', idUsuario]">Menu
+            principal</button>
     </div>
-    
+
 </main>
 
-<footer class="position-static bottom-0" style="width: 100%;" >
-    <div id="carouselExampleControls" class="carousel slide marginClase" data-bs-ride="carousel">
+<footer class="position-static marginClase bottom-0 pt-1 mt-0" style="width: 100%;">
+    <div id="carouselAnuncios2" class="carousel slide marginClase" data-bs-ride="carousel">
         <div class="carousel-inner d-flex ">
-            <div class="carousel-item active" data-bs-interval="1000" > <!--data-bs-interval="2000" para los segundos-->
-                <img [src]="anuncios[0]?.imagen" class="d-block" alt="..." style="width: 100%;">
+            <div class="carousel-item active" data-bs-interval="4000">
+                <!--data-bs-interval="2000" para los segundos-->
+                <img [src]="anuncios[0]?.imagen" class="d-block w-100" alt="..."
+                    style="width: 100%; max-height: 140px; min-height: 100px;">
             </div>
-            <div class="carousel-item" data-bs-interval="2000"> 
-                <img [src]="anuncios[1]?.imagen" class="d-block" alt="..." style="width: 100%;">
+            <div class="carousel-item" data-bs-interval="4000">
+                <img [src]="anuncios[1]?.imagen" class="d-block w-100" alt="..."
+                    style="width: 100%;max-height: 140px; min-height: 100px;">
             </div>
-            <div class="carousel-item" data-bs-interval="2000">
-                <img [src]="anuncios[2]?.imagen" class="d-block" alt="..." style="width: 100%;">
+            <div class="carousel-item" data-bs-interval="4000">
+                <img [src]="anuncios[2]?.imagen" class="d-block w-100" alt="..."
+                    style="width: 100%;max-height: 140px; min-height: 100px;">
             </div>
-            <div class="carousel-item" data-bs-interval="2000">
-                <img [src]="anuncios[3]?.imagen" class="d-block" alt="..." style="width: 100%;">
+            <div class="carousel-item" data-bs-interval="4000">
+                <img [src]="anuncios[3]?.imagen" class="d-block w-100" alt="..."
+                    style="width: 100%;max-height: 140px; min-height: 100px;">
             </div>
         </div>
 
     </div>
 </footer>
 
-<div class="container marginClase d-flex justify-content-between w-100 mb-3">
-    <button type="button" class="btn btn-danger btn-sm w-25 mt-2" (click)="cerrarSesion()">Salir</button>
-    <img src="../../../assets/SASDSA.png" class="w-50" alt="" style="object-fit: contain;">
+<div class="container marginClase d-flex justify-content-between w-100 mb-2 pt-2">
+    <button type="button" class="btn btn-sm w-25 mt-0" (click)="cerrarSesion()"
+        style="background-color: #F2F2F2; border: solid 2px gray;">Salir</button>
+    <div class="d-flex align-items-center" style="width:60%">
+        <span style="float: left; font-size: 12.5px;" class="me-2">Powered by </span>
+        <img src="../../../assets/Logo_SASDA.svg" class="w-50" alt="SAS-Digital" style="object-fit: contain;">
+    </div>
 </div>

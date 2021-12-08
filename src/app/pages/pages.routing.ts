@@ -7,6 +7,7 @@ import { MenuComponent } from './menu/menu.component';
 import { IlustracionesComponent } from "./ilustraciones/ilustraciones.component";
 import { CreateAppComponent } from './create-app/create-app.component';
 import { AuthGuard } from "../guards/auth.guard";
+import { PoliticasComponent } from "./politicas/politicas.component";
 
 const routes: Routes = [
     {
@@ -15,6 +16,7 @@ const routes: Routes = [
         children: [
             { path: '', component: CreateAppComponent, canActivate: [ AuthGuard ] },
             { path: 'app', component: HomeComponent },
+            { path: 'politicas-de-privacidad', component: PoliticasComponent },
             // { path: ':id', component: SubmenusComponent },
             { path: ':id', component: MenuComponent},
             { path: ':idUsuario/:id', component: IlustracionesComponent }

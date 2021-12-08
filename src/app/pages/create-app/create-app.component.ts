@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AuthService } from 'src/app/services/auth.service';
 import { concatMap, mergeMap } from 'rxjs/operators';
@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuModel } from 'src/app/models/menu.model';
 import { ActivatedRoute } from '@angular/router';
 declare const Swal;
+declare const $: any;
 
 @Component({
   selector: 'app-create-app',
@@ -248,16 +249,16 @@ export class CreateAppComponent implements OnInit {
       resp: []
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     }
   ]
 
@@ -276,32 +277,32 @@ export class CreateAppComponent implements OnInit {
       resp: []
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
       bg: 'blue',
       resp: []
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     }
   ]
 
@@ -311,34 +312,34 @@ export class CreateAppComponent implements OnInit {
       resp: []
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
       bg: 'blue',
       resp: []
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
-      bg: 'gray'
-    },
-    {
-      bg: 'blue',
-      resp: []
+      bg: '#dcdcdc'
     },
     {
       bg: 'blue',
       resp: []
     },
     {
-      bg: 'gray'
+      bg: 'blue',
+      resp: []
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
+    },
+    {
+      bg: '#dcdcdc'
     }
   ]
 
@@ -356,14 +357,14 @@ export class CreateAppComponent implements OnInit {
       resp: []
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     },
     {
       bg: 'blue',
       resp: []
     },
     {
-      bg: 'gray'
+      bg: '#dcdcdc'
     }
   ]
 
@@ -540,26 +541,31 @@ export class CreateAppComponent implements OnInit {
   bloque4: boolean = false
   sinBloque: boolean = true;
 
+  esMovil: boolean = false;
+
+  scrHeight: any;
+  scrWidth: any;
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+    this.scrHeight = window.innerHeight;
+    this.scrWidth = window.innerWidth;
+  }
+
   constructor(private _auth: AuthService, private toastr: ToastrService, private route: ActivatedRoute) {
     this._id = localStorage.getItem('id')
     this.token = localStorage.getItem('token')
 
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      console.log('Esto es un dispositivo móvil');
-      Swal.fire({
-        title: "Advertencia",
-        text: "Esta aplicación web no esta desarrollada para utilizarse con un dispositivo móvil, utilicé una computadora de preferencia",
-        icon: "info"
-      })
-
-    } else {
-      console.log("nooo");
-      console.log(navigator.userAgent);
+      this.esMovil = true;
     }
 
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    $("#carouselAnunciosDemo").carousel();
+    this.getScreenSize()
+  }
 
   hexToRgb(hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -583,8 +589,6 @@ export class CreateAppComponent implements OnInit {
   }
 
   datoBoton(boton: any, i: any, event: any) {
-    console.log(this.a);
-    console.log(this.b);
 
     boton.bg = this.a
 
@@ -694,12 +698,7 @@ export class CreateAppComponent implements OnInit {
 
       this.botonesDrop.splice(event.currentIndex + 1, 1)
 
-
-      console.log(this[`${botones}`]);
-
     }
-
-    console.log(this.botonesDrop);
 
   }
 
@@ -726,7 +725,13 @@ export class CreateAppComponent implements OnInit {
     }
 
     //Obtiene las respuestas anteriores que se pusieron en el boton correspondiente
-    const respuestasAnterior = event.container.data[event.currentIndex]['resp'];
+    let respuestasAnterior;
+    if (i == 2) {
+      respuestasAnterior = event.container.data[event.currentIndex + 3]['resp'];
+    } else {
+      respuestasAnterior = event.container.data[event.currentIndex]['resp'];
+    }
+
     if (i == 1) {
       if (event.previousContainer === event.container) {
         return;
@@ -767,12 +772,10 @@ export class CreateAppComponent implements OnInit {
         const imagen3Anterior = event.container.data[4]['imagen3'];
         this[`${botones}`].splice(event.previousIndex, 0, { icon: `${iconoAnterior}`, texto: `${textoAnterior}`, bg: `${bgAnterior}`, color: `${colorAnterior}`, imagen: `${imagenAnterior}`, imagen2: `${imagen2Anterior}`, imagen3: `${imagen3Anterior}` })
 
-        this.botonesDrop2[event.currentIndex].resp = respuestasAnterior;
+        this.botonesDrop2[event.currentIndex + 3].resp = respuestasAnterior;
         this.botonesDrop2.splice(4 + 1, 1)
       }
     }
-
-    console.log(this.botonesDrop2);
 
   }
 
@@ -781,18 +784,13 @@ export class CreateAppComponent implements OnInit {
     let indiceActual = event.currentIndex;
     let valor = 0;
     let botones = '';
-    console.log(event.previousContainer);
-
 
     if (event.previousContainer.id == "cdk-drop-list-0" || event.previousContainer.id == "cdk-drop-list-1" || event.previousContainer.id == "cdk-drop-list-2") {
-
     } else {
-      console.log("Nooo es uno de los primeros 3 drop list");
       return;
     }
 
     if ((i == 1 && indiceActual != 0) && (i == 1 && indiceActual != 2) || (i == 3 && indiceActual != 0) && (i == 3 && indiceActual != 1)) {
-      console.log("no es el primero, ni el segundo");
       return;
     }
 
@@ -807,11 +805,13 @@ export class CreateAppComponent implements OnInit {
       botones = 'btnDrag3'
     }
 
+    let respuestasAnterior;
     if (i == 3) {
       valor = 6;
+      respuestasAnterior = event.container.data[event.currentIndex + valor]['resp'];
+    } else {
+      respuestasAnterior = event.container.data[event.currentIndex]['resp'];
     }
-
-    const respuestasAnterior = event.container.data[event.currentIndex]['resp'];
 
     if (event.previousContainer === event.container) {
       return;
@@ -830,16 +830,16 @@ export class CreateAppComponent implements OnInit {
       const imagen3Anterior = event.container.data[event.currentIndex + valor]['imagen3'];
       this[`${botones}`].splice(event.previousIndex, 0, { icon: `${iconoAnterior}`, texto: `${textoAnterior}`, bg: `${bgAnterior}`, color: `${colorAnterior}`, imagen: `${imagenAnterior}`, imagen2: `${imagen2Anterior}`, imagen3: `${imagen3Anterior}` })
 
-      this.botonesDrop2[event.currentIndex].resp = respuestasAnterior;
+
       if (i == 3) {
         this.botonesDrop3.splice(event.currentIndex + valor + 1, 1)
+        this.botonesDrop3[event.currentIndex + valor].resp = respuestasAnterior;
       } else {
         this.botonesDrop3.splice(event.currentIndex + 1, 1)
+        this.botonesDrop3[event.currentIndex].resp = respuestasAnterior;
       }
 
     }
-
-    console.log(this.botonesDrop3);
 
   }
 
@@ -867,11 +867,14 @@ export class CreateAppComponent implements OnInit {
       botones = 'btnDrag3'
     }
 
+    let respuestasAnterior;
     if (i == 2) {
       valor = 4;
+      respuestasAnterior = event.container.data[event.currentIndex + valor]['resp'];
+    } else {
+      respuestasAnterior = event.container.data[event.currentIndex]['resp'];
     }
 
-    const respuestasAnterior = event.container.data[event.currentIndex]['resp'];
     if (event.previousContainer === event.container) {
       return;
     } else {
@@ -889,21 +892,20 @@ export class CreateAppComponent implements OnInit {
       const imagen3Anterior = event.container.data[event.currentIndex + valor]['imagen3'];
       this[`${botones}`].splice(event.previousIndex, 0, { icon: `${iconoAnterior}`, texto: `${textoAnterior}`, bg: `${bgAnterior}`, color: `${colorAnterior}`, imagen: `${imagenAnterior}`, imagen2: `${imagen2Anterior}`, imagen3: `${imagen3Anterior}` })
 
-      this.botonesDrop2[event.currentIndex].resp = respuestasAnterior;
+
       if (i == 2) {
         this.botonesDrop4.splice(event.currentIndex + valor + 1, 1)
+        this.botonesDrop4[event.currentIndex + valor].resp = respuestasAnterior;
       } else {
         this.botonesDrop4.splice(event.currentIndex + 1, 1)
+        this.botonesDrop4[event.currentIndex].resp = respuestasAnterior;
       }
 
     }
 
-    console.log(this.botonesDrop4);
-
   }
 
   guardar() {
-    // console.log(v);
 
     let btnSeleccionado = ''
     let bloque = 0
@@ -937,10 +939,8 @@ export class CreateAppComponent implements OnInit {
 
 
     if (this[`${btnSeleccionado}`]) {
-      console.log("hay datos");
-      console.log(this[`${btnSeleccionado}`]);
+
     } else {
-      console.log("No hay datos");
       this.warningDropImagenes("Debe asignar botones a su menú gráfico", "Advertencia")
       return;
     }
@@ -948,60 +948,47 @@ export class CreateAppComponent implements OnInit {
 
     let cImagenes = 0;
     let cBotones = 0;
-    console.log(this[`${btnSeleccionado}`]);
     this[`${btnSeleccionado}`].map(respu => {
-      // console.log(respu);
 
       if (respu.resp?.length) {
-        console.log("Hay iagenes asignadas a botones");
         cImagenes++;
-        // console.log("contador Imagenes::", cImagenes);
-      } else {
-        console.log("No hay imagenes asignados a botones");
-        // return
       }
 
       if (respu.imagen) {
-        console.log("Hay botones asignados");
         cBotones++;
-        console.log("contador Botones::", cBotones);
-      } else {
-        console.log("No hay botones asignados");
       }
 
     })
 
 
-
+    let hayAnunciosDrop = false;
     if (cImagenes == 4) {
       //Iria un boolean para mostrar un mensaje en de que debe seleccion ar botones
-      console.log("Hay imagenes asignadas a botones, contador");
     } else {
       this.warningDropImagenes("Debe asignar botones y su respectiva respuesta al menú gráfico", "Advertencia")
-      return
+      return false;
     }
     if (cBotones == 4) {
       //Iria un boolean para mostrar un mensaje en de que debe seleccion imagenes para botones
-      console.log("Hay botones asignados, contador");
     } else {
       this.warningDropImagenes("Debe asignar botones y su respectiva respuesta al menú gráfico", "Advertencia")
-      return
+      return false;
     }
-    if (this.anunciosDrop[0].id && this.anunciosDrop[1].id && this.anunciosDrop[2].id && this.anunciosDrop[3].id) {
-      //Iria un boolean para mostrar un mensaje en de que debe seleccion imagenes para botones
-      console.log("Hay anuncios asignados, contador");
+    if (this.anunciosDrop[0].id == 0 || this.anunciosDrop[1].id == 0 || this.anunciosDrop[2].id == 0 || this.anunciosDrop[3].id == 0) {
+      this.warningDropImagenes("Debe seleccionar los anuncios que se mostrarán", "Advertencia")
+      hayAnunciosDrop = false;
+      return;
     } else {
-      this.warningDropImagenes("Debe asignar seleccionar los anuncios que se mostrarán", "Advertencia")
-      return
+      //Iria un boolean para mostrar un mensaje en de que debe seleccion imagenes para botones
+      hayAnunciosDrop = true;
     }
 
 
 
     //Falta validar el carrusel de imagenes
-
-    if (cImagenes == 4 && cImagenes == 4 && (this.anunciosDrop[0].id && this.anunciosDrop[1].id && this.anunciosDrop[2].id && this.anunciosDrop[3].id)) {
+    // (this.anunciosDrop[0].id && this.anunciosDrop[1].id && this.anunciosDrop[2].id && this.anunciosDrop[3].id)
+    if (cImagenes == 4 && cImagenes == 4 && hayAnunciosDrop == true) {
       //Se completaria y madaria la generación del QR
-      console.log("hay imahenes y bltones completos yyyy anuncios");
 
       //id lo tenfo que recuperar del service o del localestroge
       this.menuModel._id = this._id;
@@ -1010,7 +997,6 @@ export class CreateAppComponent implements OnInit {
       this.menuModel.datos = this[`${btnSeleccionado}`];
 
       if (this.fileImagenSubir) {
-        console.log(this.fileImagenSubir);
         const file_data = this.fileImagenSubir
         const data = new FormData()
         data.append("file", file_data);
@@ -1028,32 +1014,21 @@ export class CreateAppComponent implements OnInit {
         //Mandar bloque y hacer un modelo de datos para recibir los datos correspondientes
         this._auth.uploadImagen(data).pipe(
           concatMap(resp => {
-            console.log(resp);
             this.menuModel.anuncios[this.posicionAnuncio4].imagen = resp.secure_url
-            // this.anunciosDrop[this.posicionAnuncio4].imagen = resp.secure_url
-            console.log(this.anunciosDrop[this.posicionAnuncio4].imagen);
-            console.log(this.menuModel);
-
-
             return this._auth.guardarDatosIdr(this.menuModel)
-
           })
         ).subscribe(resp => {
-          console.log(resp)
-          console.log(this[`${btnSeleccionado}`]);
-          console.log(this.anunciosDrop);
           Swal.fire({
             title: 'Datos guardados',
             text: 'Escanee el QR generado y vea su Menú gráfico en su celular',
             icon: "success"
           })
           this.urlQR = `https://idrenlinea.solucionesavanzadasyserviciosdigitales.com/#/idr/${this._id}?token=${this.token}`
-          // this.urlQR = `http://localhost:4200/#/idr/${this._id}?token=${this.token}`
           this.booleanQR = true;
         }, error => {
           console.log(error);
         }, () => {
-          console.log("Se completo todo");
+          $("#staticBackdrop").modal("show");
         }
         )
 
@@ -1067,30 +1042,25 @@ export class CreateAppComponent implements OnInit {
         Swal.showLoading();
 
         this._auth.guardarDatosIdr(this.menuModel).subscribe(resp => {
-          console.log(resp);
           Swal.fire({
             title: 'Datos guardados',
             text: 'Escanee el QR generado y vea su Menú gráfico en su celular',
             icon: "success"
           })
           this.urlQR = `https://idrenlinea.solucionesavanzadasyserviciosdigitales.com/#/idr/${this._id}?token=${this.token}`
-          // this.urlQR = `http://localhost:4200/#/idr/${this._id}?token=${this.token}`
           this.booleanQR = true;
-          console.log(this.menuModel);
-          console.log(this[`${btnSeleccionado}`]);
-
-          //contra z(Fn2JETUa
-          //617a3a6c3931ce2c381113e1
-          //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2EzYTZjMzkzMWNlMmMzODExMTNlMSIsImVtYWlsIjoiaWRyLmVubGluZWFAZ21haWwuY29tIiwiZXhwIjoxNjQzODUzNTQ2LCJpYXQiOjE2MzYwNzc1NDZ9.Y6aX3ZADl7VkMh8QfgOjoDPwcW_6pEOvVrjho0uzBD0
         }, error => {
           console.log(error);
           Swal.close()
+        }, () => {
+          $("#staticBackdrop").modal("show");
         })
 
       }
 
     } else {
       this.errorsToastr("Debe completar todos los puntos", "Error")
+      return
     }
 
   }
@@ -1108,14 +1078,6 @@ export class CreateAppComponent implements OnInit {
   }
 
   dropImagenes(event: CdkDragDrop<string[]>) {
-
-    console.log(event.container);
-    console.log(event.previousContainer);
-
-    console.log(event.currentIndex);
-    console.log(event.previousIndex);
-
-
 
     if (event.previousContainer.id != "cdk-drop-list-3" || event.currentIndex == 4) {
       return;
@@ -1146,17 +1108,12 @@ export class CreateAppComponent implements OnInit {
 
     }
 
-    console.log(this.botonesDrop);
-
   }
 
 
   dropImagenes2(event: CdkDragDrop<string[]>) {
 
-    console.log(this.botonesDrop2);
-
     if (event.previousContainer.id != "cdk-drop-list-3" || event.currentIndex == 4) {
-      console.log("entro al if primero");
       return;
     }
 
@@ -1188,32 +1145,19 @@ export class CreateAppComponent implements OnInit {
 
       this.respuestasDrop2.splice(event.currentIndex + 1, 1)
 
-      console.log(this.respuestasDrop2[event.currentIndex]);
-
       if (event.currentIndex == 3) {
         this.botonesDrop2[4].resp = [this.respuestasDrop2[event.currentIndex]]
       } else {
         this.botonesDrop2[event.currentIndex].resp = [this.respuestasDrop2[event.currentIndex]]
       }
 
-
-      console.log(this.botonesDrop2);
-
     }
-
-    console.log(event.container.data);
-    console.log(this.respuestasDrop2);
-    console.log(this.respuestasDrag);
 
   }
 
   dropImagenes3(event: CdkDragDrop<string[]>) {
 
-    console.log(this.botonesDrop3);
-
     if (event.previousContainer.id != "cdk-drop-list-3" || event.currentIndex == 4) {
-      console.log("entro al if primero");
-
       return;
     }
 
@@ -1262,8 +1206,6 @@ export class CreateAppComponent implements OnInit {
 
       this.respuestasDrop3.splice(event.currentIndex + 1, 1)
 
-      console.log(this.respuestasDrop3[event.currentIndex]);
-
       switch (event.currentIndex) {
         case 0: this.botonesDrop3[event.currentIndex].resp = [this.respuestasDrop3[event.currentIndex]]
           break;
@@ -1276,19 +1218,11 @@ export class CreateAppComponent implements OnInit {
         default: break;
       }
 
-      console.log(this.botonesDrop3);
-
     }
-
-    console.log(event.container.data);
-    console.log(this.respuestasDrop3);
-    console.log(this.respuestasDrag);
 
   }
 
   dropImagenes4(event: CdkDragDrop<string[]>) {
-
-    console.log(this.botonesDrop4);
 
     if (event.previousContainer.id != "cdk-drop-list-3" || event.currentIndex == 4) {
       return;
@@ -1320,21 +1254,13 @@ export class CreateAppComponent implements OnInit {
 
       this.respuestasDrop4.splice(event.currentIndex + 1, 1)
 
-      console.log(this.respuestasDrop4[event.currentIndex]);
-
       if (event.currentIndex == 3) {
         this.botonesDrop4[4].resp = [this.respuestasDrop4[event.currentIndex]]
       } else {
         this.botonesDrop4[event.currentIndex].resp = [this.respuestasDrop4[event.currentIndex]]
       }
 
-      console.log(this.botonesDrop4);
-
     }
-
-    console.log(event.container.data);
-    console.log(this.respuestasDrop4);
-    console.log(this.respuestasDrag);
 
   }
 
@@ -1342,7 +1268,6 @@ export class CreateAppComponent implements OnInit {
     let valor = 0;
 
     if ((event.previousContainer.id != "cdk-drop-list-4" && event.previousContainer.id != "cdk-drop-list-5") || event.currentIndex == 4) {
-      console.log("entro al if primero");
       return;
     }
 
@@ -1351,9 +1276,6 @@ export class CreateAppComponent implements OnInit {
     }
 
     if (event.currentIndex == this.posicionAnuncio4) {
-      console.log("enrroo");
-      // this.anunciosAuxiliarDrop[this.posicionAnuncio4].imagen = ''
-      // this.anunciosDrop[this.posicionAnuncio4].imagen = '../../../assets/anuncios/anunciese.png'
       this.anuncio4 = 0;
     }
 
@@ -1364,19 +1286,12 @@ export class CreateAppComponent implements OnInit {
       }
       if (this.anuncio4 == 0) {
         this.fileImagenSubir = this.fileImagen
-        console.log("Imagen a  subir:", this.fileImagenSubir);
         this.posicionAnuncio4 = event.currentIndex
         this.anuncio4++;
       } else {
-        console.log("Solo puede colocarlo una vez");
         this.warningDropImagenes("Solo puede asignar une vez la imagen", "Advertencia")
         return
       }
-
-
-
-      console.log(this.posicionAnuncio4);
-
 
     }
 
@@ -1403,20 +1318,15 @@ export class CreateAppComponent implements OnInit {
 
 
   onfileChange(event) {
-    // console.log('img: ', event);
-
 
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
-      if (file.type.includes("image/jpeg")) {
+      if (file.type.includes("image/jpeg") || file.type.includes("image/jpg")) {
         this.fileImagen = file;
-        console.log("Imagen cargada::", this.fileImagen);
-
         const reader = new FileReader();
         let formData = new FormData();
 
         formData.append("file", file);
-        console.log(formData.get('file'));
 
         reader.readAsDataURL(file);
 
@@ -1435,7 +1345,6 @@ export class CreateAppComponent implements OnInit {
 
   async cerrarSesion() {
     let cerrar = await this._auth.cerrarSesion()
-    console.log(cerrar);
     window.location.href = "https://solucionesavanzadasyserviciosdigitales.com/"
   }
 

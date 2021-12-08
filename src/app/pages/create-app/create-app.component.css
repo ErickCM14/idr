@@ -1,36 +1,96 @@
 .contenedor{
-    background: linear-gradient(to right, #EBF0F9 0%, #EBF0F9 72%, white 72%, white 100%) !important;
+    background: linear-gradient(to right,  white 0%, white 72%, #EBF0F9 72%, #EBF0F9 100%) !important;
     min-height: 100vh;
 }
 
-.marginClase{
-  height: 340px;
+.container-2{
+  background: linear-gradient(to right,  white 0%, white 72%, #EBF0F9 72%, #EBF0F9 100%) !important;
+}
+
+@media(min-width: 1600px){
+  .contenedor, .container-2{
+    background: linear-gradient(to right, white 0%, white 67%, #EBF0F9 67%, #EBF0F9 100%) !important;
+  }
+}
+
+.marginClase, .marginClase2{
+  height: 310px;
+  max-height: 310px;
+}
+
+.position-fixed{
+  right: 2%;
 }
 
 .bloques{
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 
-@media(min-width:1400px){
+.bordes-btn-cuadrado{
+  border-right: solid 2px #4472C4; 
+  border-left: solid 2px #4472C4;
+}
+
+@media(min-width:1600px){
+  .position-fixed{
+    right: 10.5%;
+  }
+}
+
+@media(min-width:1400px) and (max-width: 1599px){
   .container{
     max-width: 1140px;
+  }
+  .position-fixed{
+    right: 5.5%;
+  }
+}
+
+
+.botones-alineados-padding{
+  padding-top: 4px;
+}
+.span-alineados-padding{
+  padding-top: 3px;
+}
+
+@media (min-width: 912px) and (max-width: 1024px) {
+  .span-alineados-padding{
+    padding-top: 0!important;
   }
 }
 
 @media(max-width:1000px){
+
+  .botones-alineados-padding{
+    padding-top: 0;
+  }
+
   .container{
-    max-width: 95%;
+    max-width: 98%;
   }
   .bloques{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr 1fr 1fr
+  }
+
+  .bloques > div >img{
+    width: 60px;
+  }
+
+  .bloques > div > p{
+    font-size: 10px;
+  }
+  
+  .bordes-btn-cuadrado{
+    border: 0;
   }
 }
 
 @media(max-width:1024px){
   .btns-dragables{
-    flex-direction: column;
+    /* flex-direction: column; */
   }
 
   .btns-dragables > div{
@@ -38,29 +98,51 @@
   }
 
   .btns-dragables .col-3, .btns-dragables .dragable-3-btn{
-    width: 100%;
+    /* width: 100%; */
+  }
+
+  .texto-boton-4{
+    display: none;
   }
 
 }
 
 @media(max-width:768px){
   .btns-dragables{
-    flex-direction: column;
+    /* flex-direction: column; */
   }
 
   .btns-dragables > div{
-    width: 100%;
+    /* width: 100%; */
   }
 
   .position-fixed{
-    position: relative!important;
-    width: 100%;
+    /* position: relative!important; */
+    /* width: 100%; */
     max-width: 300px;
     margin:  0 auto;
+
+    padding: 0;
+    right: 0%;
   }
   .col-9{
-    width: 100%;
+    width: 70%;
+    /* width: 100%; */
   }
+
+  /*ESTO NO ESTABA*/
+  .marginClase, .marginClase2{
+    height: 165px;
+    max-height: 165px;
+  }
+
+  .position-fixed{
+    margin-top: 10px!important;
+  }
+  .cel > h6{
+    font-size: 8px;
+  }
+
 }
 
 .cel{
@@ -68,7 +150,7 @@
 }
 
 .boton-rectangulo{
-  height: 32px;
+  height: 30px;
   }
   
   .boton-rectangulo-img{
@@ -80,7 +162,7 @@
   }
   
   .rectanguloVertical{
-    height: 120px;
+    height: 110px;
   }
 
 
@@ -88,12 +170,18 @@
   visibility: visible;
 }
 
+@media (min-width: 992px){
+  .container{
+    max-width: 1100px;
+  }
+}
+
 @media(min-device-width:768px) and (max-device-width:1000px) and (max-height:500px) and (orientation: landscape) {
   .qr-box{
     visibility: hidden;
   }
 
-  .marginClase{
+  .marginClase, .marginClase2{
     height: 260px;
   }
 
@@ -116,11 +204,11 @@
   }
 
   .boton-rectangulo{
-    height: 20px;
+    height: 23px;
   }
   
   .boton-rectangulo-img{
-    height: 35px;
+    height: 25px;
   }
   
   .boton-cuadrado{
@@ -186,4 +274,202 @@
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+#warning-message { display: none; }
+@media only screen and (orientation:portrait){
+    .contenedor { display:none; }
+    #warning-message { display:block; }
+}
+@media only screen and (orientation:landscape){
+    #warning-message { display:none; }
+}
+
+
+
+
+
+.botones > div > img{
+  width: 10px;
+}
+
+/* .banderas{
+  float: right; 
+  margin-top: -50px; 
+  margin-right: 30px;
+} */
+.form-text.position-absolute{
+  margin-bottom: -15px;
+  font-size: 10px!important;
+}
+.banderas picture img{
+  max-width: 100%;
+}
+
+@media(max-width: 768px){
+  .bloque1Drop{
+    width: 90%!important;
+  }
+
+  .bloque1Drop > .boton-rectangulo{
+    height: 15px;
+    margin: 0!important;
+    font-size: 8px!important;
+  }
+
+  .bloque1Drop > .boton-rectangulo > img{
+    width: 10px!important;
+  }
+  
+  .marginClase > div{
+    height: 100%;
+    overflow-y: auto;
+  }
+  .marginClase.clase4 > div, .marginClase.clase3 > div{
+    height: auto;
+  }
+
+  .marginClase.clase4 > div{
+    width: 95%!important;
+  }
+
+  .ultimoBoton3{
+    width: 100%!important;
+  }
+
+  .rectanguloVertical{
+    height: 50px;
+    font-size: 8px!important;
+  }  
+  
+  .boton-rectangulo-img{
+    height: 25px!important;
+  }
+
+  .banderas picture img{
+    max-width: 30px;
+  }
+
+  .boton-cuadrado{
+    height: 30px;
+  }
+  .boton-cuadrado > img{
+    width: 50%!important;
+  }
+
+  .marginClase2 > div{
+    width: 100%!important;
+    /* overflow-y: auto; */
+  }
+
+  .marginClase.clase3 div{
+    width: 98%!important;
+  }
+  .marginClase.clase3 > div{
+    overflow: inherit!important;
+  }
+
+  .form-text.position-absolute{
+    margin-bottom: -10px;
+    font-size: 7px!important;
+  }
+  #primero2{
+    margin-bottom: -10px!important;
+    font-size: 7px!important;
+  }
+
+  .boton-cuadrado{
+    padding: 2px;
+  }
+
+  .qr-box{
+    display: none;
+    padding: 0 0.5rem!important;
+  }
+
+  .qr-box > div{
+    min-height: 75px!important;
+  }
+
+  .qr-box > p{
+    font-size: 10px!important;
+  }
+
+  .example-box {
+    padding: 0;
+    font-size: 8px;
+  }
+
+  #inputGroupFile01, #boton-submit{
+    width: 100%!important;
+    font-size: 11px!important;
+  }
+
+  .botonHeader{
+    font-size: 11px!important;
+  }
+
+  #labelinputGroupFile01, #labelexampleColorInput{
+    font-size: 10px!important;
+  }
+
+
+  h1{
+    font-size: 15px!important;
+  }
+  h2{
+    font-size: 12px!important;
+  }
+
+  h5{
+    font-size: 12px;
+  }
+
+  
+
+}
+
+@media(max-width: 850px){
+  
+  .dropBtnRectangulo{
+    /* width: 70px!important; */
+    font-size: 8px!important;
+    height: 20px;
+  }
+
+  .btns-dragables > .dragable-1-btn > div > div{
+    margin: 2px 0!important;
+  }
+
+  .dropBtnCuadrado{
+    width: 30px!important;
+    height: 30px!important;
+  }
+
+  .dropBtnCuadradoTexto{
+    font-size: 7px!important;
+  }
+
+  .dropBtnRectanguloVertical{
+    width: 40px!important;
+    height: 80px!important;
+    font-size: 7px!important;
+  }
+
+  .btns-dragables > .bordes-btn-cuadrado > div{
+    margin-bottom: 0;
+    grid-template-columns: 35px 35px!important;
+  } 
+  .btns-dragables > .bordes-btn-cuadrado > div >div{
+    width: 35px!important;
+    height: 35px!important;
+  }
+  .btns-dragables > .dragable-3-btn > div{
+    margin-bottom: 0;
+    grid-template-columns: 40px 40px 40px!important;
+  } 
+  .btns-dragables > .dragable-3-btn > div > div{
+    width: 40px!important;
+    height: 80px!important;
+  } 
 }

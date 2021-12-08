@@ -1,68 +1,91 @@
+<div id="warning-message" class="container pt-5 pb-5">
+    <h4 class="pt-4 text-center">Gire su dispositivo móvil en forma horizontal para ver el contenido</h4>
+</div>
 <div class="contenedor">
-    <main class="container pt-5 pb-5">
-        <div class="row pt-5 position-relative" cdkDropListGroup>
+    <main class="container pt-4 pb-5">
+        <div class="row pt-4 position-relative" cdkDropListGroup>
             <div class="col-9">
+                <div class="banderas mb-2" style="float: right;">
+                    <button class="btn me-3 p-0" >
+                        <img src="../../../assets/bandera-inglesa-header.png" alt="Bandera inglesa">
+                    </button>
+                    <button class="btn p-0">
+                        <img src="../../../assets/bandera-espanola-header.png" alt="Bandera española">
+                    </button>
+                </div>
+                <h1 class="text-center fs-4" style="color:#2B6EAB; font-weight: 700; margin: 0;">IDR - Demo en Línea
+                </h1>
+                <h2 class="text-center mb-2 fs-6" style="color:#2B6EAB; font-weight: 700;">Interactive Digital Response
+                </h2>
                 <div class="d-flex justify-content-between w-100 mb-3">
-                    <a href="javascript:void(0)" class="btn btn-light btn-sm">Video Tutorial</a>
-                    <button type="button" class="btn btn-danger btn-sm me-2" (click)="cerrarSesion()">Cerrar sesión</button>
+                    <a href="javascript:void(0)" class="btn btn-sm botonHeader"
+                        style="background-color: #F2F2F2; border: solid 2px gray;">Video Tutorial</a>
+                    <button type="button" class="btn btn-sm me-3 botonHeader"
+                        style="background-color: #F2F2F2; border: solid 2px gray;" (click)="cerrarSesion()">Cerrar
+                        sesión</button>
                 </div>
 
-                <h5>1.- Seleccione el formato del Menú gráfico (haciendo clic sobre la imagen se mostrará un móvil a la
+                <h5>1.- Seleccione el formato del Menú gráfico (haciendo clic sobre la imagen y aparecerá en el móvil a la
                     derecha):
                 </h5>
                 <section class="bloques">
                     <div class="btn " (click)="bloque(1)">
-                        <img src="../../../assets/options-app/option1.png" alt="option 1">
+                        <img src="../../../assets/options-app/option1.png" alt="option 1" draggable="false">
+                        <p>Botones de<br />barra</p>
                     </div>
                     <div class="btn" (click)="bloque(2)">
-                        <img src="../../../assets/options-app/option2.png" alt="option 2">
+                        <img src="../../../assets/options-app/option2.png" alt="option 2" draggable="false">
+                        <p>Botones<br />cuadrados</p>
                     </div>
                     <div class="btn" (click)="bloque(3)">
-                        <img src="../../../assets/options-app/option3.png" alt="option 3">
+                        <img src="../../../assets/options-app/option3.png" alt="option 3" draggable="false">
+                        <p>Botones<br />mixtos</p>
                     </div>
                     <div class="btn" (click)="bloque(4)">
-                        <img src="../../../assets/options-app/option4.png" alt="option 4">
+                        <img src="../../../assets/options-app/option4.png" alt="option 4" draggable="false">
+                        <p>Botones con<br />imágenes y texto</p>
+                    </div>
+                    <div class="mt-5 fs-6 texto-boton-4 text-center">
+                        <p>Se muestran en<br />color los botones<br />que estarán<br />activos</p>
                     </div>
                 </section>
 
 
-                <h5 class="mt-5">2.- Seleccione cuatro botones para el formato del Menú gráfico (Seleccione el color y
+                <h5 class="mt-2">2.- Seleccione cuatro botones para el formato del Menú gráfico (Seleccione el color y
                     de
-                    doble click al
+                    doble clic al
                     botón
                     que quiera cambiarle el color):
                     <br />
-                    Arrastre el botón a la posición que lo quiere en el menú gráfico
+                    Arrastre el botón seleccionado hasta la posición en que lo quiera ubicar en el menú gráfico.
                 </h5>
 
                 <div class="row">
                     <div class="d-flex align-items-center mb-3">
-                        <label for="exampleColorInput" class="form-label me-3">Seleccione el color:</label>
+                        <label for="exampleColorInput" id="labelexampleColorInput" class="form-label me-3">Seleccione el color del botón </label>
                         <input type="color" class="form-control form-control-color" id="exampleColorInput"
                             value="#0000C8" (change)="cambioColor($event)" title="Choose your color">
                     </div>
                 </div>
 
-                <section class="btns-dragables d-flex gap-3 mb-3">
+                <section class="btns-dragables d-flex gap-1 mb-3">
 
                     <!-- Bloque 1 Dragable -->
-                    <div class="col-4 d-flex justify-content-center">
+                    <div class="col-3 d-flex justify-content-center dragable-1-btn">
 
                         <div cdkDropList id="cdk-drop-list-0" [cdkDropListData]="btnDrag1" class="d-flex flex-column"
                             style="width: 100%; ">
                             <div *ngFor="let boton of this.btnDrag1; let i = index" class="m-2"
-                                style="min-width: 100px;" cdkDrag>
+                                style="min-width: 80px;" cdkDrag>
                                 <button type="button" (dblclick)="datoBoton(boton, i, $event)"
                                     [ngStyle]="{'background-color': boton.bg, 'color': boton.color }"
-                                    class="btn w-100 p-0 fs-5">
-                                    <!-- <i [ngClass]="boton.icon" [ngStyle]="{'background-color': boton.bg}"></i> -->
-
-                                    <!-- Para mostrarselo al señor -->
-                                    <!-- <img [src]="boton.icon" style="width: 10%;" alt=""> -->
+                                    class="btn w-100 p-0 fs-6 boton-rectangulo dropBtnRectangulo">
                                     <img [src]="boton.imagen"
                                         [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                        style="width: 10%;" alt="">
-                                    {{boton.texto}}
+                                        style="width: 18px; float: left; margin-left: 18%; margin-right: 5px;" class="botones-alineados-padding" alt="icono">
+                                        <!-- float: left; margin-left: 15%;" class="botones-alineados-padding" -->
+                                    <!-- <span style="float: left; margin-left: 3%;" class="span-alineados-padding" >{{boton.texto}}</span> -->
+                                    <span style="float: left;">{{boton.texto}}</span>
                                 </button>
                             </div>
                         </div>
@@ -71,7 +94,7 @@
 
 
                     <!-- Bloque 2 Dragable -->
-                    <div class="col-3 d-flex justify-content-center mb-3">
+                    <div [ngClass]="900 >= scrWidth  ? 'col-2' : 'col-3'" class=" d-flex justify-content-center mb-3 bordes-btn-cuadrado">
 
                         <div class="gap-1 mb-3 mt-2" cdkDropListOrientation="vertical" cdkDropList id="cdk-drop-list-1"
                             [cdkDropListData]="btnDrag2"
@@ -80,14 +103,14 @@
                                 style="height: 65px; width: 65px; margin: 0 auto;" cdkDrag class="text-center">
                                 <button type="button" (dblclick)="datoBoton(boton, i, $event)"
                                     [ngStyle]="{'background-color': boton.bg, 'color': boton.color }"
-                                    style="height: 65px; width: 65px;" class="btn w-100 p-0 fs-3 ">
+                                    style="height: 65px; width: 65px;" class="btn w-100 p-0 dropBtnCuadrado">
                                     <!-- <i [ngClass]="boton.icon" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"></i> -->
                                     <!-- <img [src]="boton.icon" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}" style="width: 80%;" alt=""> -->
                                     <img [src]="boton.imagen2"
                                         [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
                                         style="width: 70%;" alt="">
                                 </button>
-                                <span class="form-text">{{boton.texto}}</span>
+                                <p class="form-text p-0 m-0 dropBtnCuadradoTexto">{{boton.texto}}</p>
                             </div>
                         </div>
 
@@ -97,14 +120,14 @@
                     <!-- Bloque 3 Dragable -->
                     <div class="col-4 d-flex justify-content-center mb-3 dragable-3-btn">
 
-                        <div class="gap-3 mb-3 mt-2" cdkDropListOrientation="vertical" cdkDropList id="cdk-drop-list-2"
+                        <div class="gap-1 mb-3 mt-2" cdkDropListOrientation="vertical" cdkDropList id="cdk-drop-list-2"
                             [cdkDropListData]="btnDrag3"
                             style="display: grid; grid-template-columns: 1fr 1fr 1fr; width: 100%;">
                             <div *ngFor="let boton of this.btnDrag3; let i = index"
                                 style="height: 140px; width: 85px; margin: 0 auto;" cdkDrag>
                                 <button type="button" (dblclick)="datoBoton(boton, i, $event)"
                                     [ngStyle]="{'background-color': boton.bg, 'color': boton.color }"
-                                    style="height: 140px; " class="btn w-100 p-0 fs-6">
+                                    style="height: 140px; " class="btn w-100 p-0 dropBtnRectanguloVertical">
                                     <!-- <i [ngClass]="boton.icon" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"></i> -->
                                     {{boton.texto}}
                                     <img [src]="boton.imagen3"
@@ -127,7 +150,7 @@
                     <div class="col-12 d-flex justify-content-center">
                         <div cdkDropList id="cdk-drop-list-3" [cdkDropListData]="respuestasDrag"
                             cdkDropListOrientation="horizontal" class="d-flex " style="width: 100%;">
-                            <div *ngFor="let resp of this.respuestasDrag; let i = index" class="m-2" cdkDrag>
+                            <div *ngFor="let resp of this.respuestasDrag; let i = index" class="m-1" cdkDrag>
                                 <div class="btn p-0 fs-5" style="max-width: 100px;">
                                     <img [src]="resp.imagen" style="width: 100%;" alt="">
                                 </div>
@@ -137,7 +160,7 @@
 
                     <div *ngIf="this.bloque1">
                         <div cdkDropList id="cdk-drop-list-6" [cdkDropListData]="respuestasDrop1"
-                            cdkDropListOrientation="horizontal" class="d-flex gap-2 example-list"
+                            cdkDropListOrientation="horizontal" class="d-flex example-list"
                             (cdkDropListDropped)="dropImagenes($event)">
                             <div class="example-box" *ngFor="let resp of respuestasDrop1; let i = index" cdkDrag>
                                 <p class="w-100">{{this.botonesDrop[i]['texto'] }}</p>
@@ -149,7 +172,7 @@
 
                     <div *ngIf="this.bloque2">
                         <div cdkDropList id="cdk-drop-list-7" [cdkDropListData]="respuestasDrop2"
-                            cdkDropListOrientation="horizontal" class="d-flex gap-2 example-list"
+                            cdkDropListOrientation="horizontal" class="d-flex example-list"
                             (cdkDropListDropped)="dropImagenes2($event)">
                             <div class="example-box d-flex" *ngFor="let resp of respuestasDrop2; let i = index" cdkDrag>
                                 <p [ngStyle]="{ 'display': 3 > i ? 'block' : 'none'}" class="w-100">
@@ -163,7 +186,7 @@
 
                     <div *ngIf="this.bloque3">
                         <div cdkDropList id="cdk-drop-list-8" [cdkDropListData]="respuestasDrop3"
-                            cdkDropListOrientation="horizontal" class="d-flex gap-2 example-list"
+                            cdkDropListOrientation="horizontal" class="d-flex example-list"
                             (cdkDropListDropped)="dropImagenes3($event)">
                             <div class="example-box d-flex" *ngFor="let resp of respuestasDrop3; let i = index" cdkDrag>
                                 <p [ngStyle]="{ 'display': i==0 ? 'block' : 'none'}" class="w-100">
@@ -182,7 +205,7 @@
 
                     <div *ngIf="this.bloque4">
                         <div cdkDropList id="cdk-drop-list-9" [cdkDropListData]="respuestasDrop4"
-                            cdkDropListOrientation="horizontal" class="d-flex gap-2 example-list"
+                            cdkDropListOrientation="horizontal" class="d-flex example-list"
                             (cdkDropListDropped)="dropImagenes4($event)">
                             <div class="example-box d-flex" *ngFor="let resp of respuestasDrop4; let i = index" cdkDrag>
                                 <p [ngStyle]="{ 'display': 3 > i ? 'block' : 'none'}" class="w-100">
@@ -199,21 +222,21 @@
 
                 <section class="mb-5">
 
-                    <h5>4 - Seleccione tres imágenes para el carrusel de publicidad:</h5>
+                    <h5>4 - Seleccione cuatro respuestas gráficas para el carrusel de publicidad:</h5>
 
                     <div class="col-12 d-flex flex-column justify-content-center">
 
-                        <div class="mb-3">
-                            <label for="inputGroupFile01"> Una imagen puede ser personalizada, subirla en formato
-                                .jpeg</label>
-                            <input type="file" class="form-control ms-2 w-50" name="file" accept="image/jpeg"
+                        <div class="mb-2">
+                            <label for="inputGroupFile01" id="labelinputGroupFile01"> Una imagen puede ser personalizada, subirla en formato
+                                jpg/jpeg</label>
+                            <input type="file" class="form-control form-control-sm ms-2 w-50" name="file" accept="image/jpeg"
                                 id="inputGroupFile01" (change)="onfileChange($event)">
                         </div>
 
                         <div cdkDropList id="cdk-drop-list-4" [cdkDropListData]="anunciosDrag"
-                            cdkDropListOrientation="horizontal" class="d-flex mb-3"
+                            cdkDropListOrientation="horizontal" class="d-flex mb-1"
                             style="width: 100%; max-height: 120px;">
-                            <div *ngFor="let anuncio of this.anunciosDrag | slice:0:4; let i = index" class="m-2"
+                            <div *ngFor="let anuncio of this.anunciosDrag | slice:0:4; let i = index"
                                 cdkDrag>
                                 <div class="btn p-0 fs-5" style=" width: 100%;">
                                     <img [src]="anuncio.imagen" style="width: 100%; max-height: 100px;" alt="">
@@ -223,7 +246,7 @@
 
                         <div cdkDropList id="cdk-drop-list-5" [cdkDropListData]="anunciosDrag"
                             cdkDropListOrientation="horizontal" class="d-flex " style="width: 100%;">
-                            <div *ngFor="let anuncio of this.anunciosDrag | slice:4:8; let i = index" class="m-2"
+                            <div *ngFor="let anuncio of this.anunciosDrag | slice:4:8; let i = index"
                                 cdkDrag>
                                 <div class="btn p-0 fs-5" style="max-width: 100%;">
                                     <img [src]="anuncio.imagen" style="width: 100%;" alt="">
@@ -237,7 +260,7 @@
                     <div>
                         <div class="col-12 d-flex flex-column justify-content-center">
                             <div cdkDropList id="cdk-drop-list-10" [cdkDropListData]="anunciosAuxiliarDrop"
-                                cdkDropListOrientation="horizontal" class="d-flex gap-2 example-list"
+                                cdkDropListOrientation="horizontal" class="d-flex example-list"
                                 (cdkDropListDropped)="dropAnuncios($event)">
                                 <div class="example-box" *ngFor="let anuncio of anunciosAuxiliarDrop; let i = index"
                                     cdkDrag>
@@ -253,21 +276,23 @@
 
                 </section>
 
-                <button type="button" (click)="guardar()" class="btn btn-secondary" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop">Generar código QR y escanear desde su teléfono móvil</button>
+                <button type="button" (click)="guardar()" class="btn w-50 " id="boton-submit"
+                    style="background-color: #F2F2F2; border: solid 2px gray; font-size: 13px;">Generar código 
+                    QR y escanear desde su teléfono móvil, o toca el códicgo QR o el Bit.Ly en tu pantalla Touch.
+                    </button>
 
             </div>
 
-            <div class="col-3 position-fixed top-0  mt-3" style="right: 2%;">
+            <div class="col-3 position-fixed top-0 mt-3" style=" max-width: 320px; z-index: 0;">
 
 
                 <section class="w-100 cel ">
-
+                    <h6 class="text-center m-0">Menú gráfico</h6>
                     <div class="w-100"
-                        style="height: auto; padding: 10px; border-radius: 10px;  border: solid 2px black;">
+                        style="height: auto; padding: 0 10px 10px 10px; border-radius: 25px;  border: solid 3px black;">
 
                         <div class="w-100 text-center">
-                            <img src="../../../assets/SASDSA-cel.png" alt="" class="w-50">
+                            <img src="../../../assets/Logo_SASDA.png" alt="SAS-Digital" class="w-50">
                         </div>
 
                         <div *ngIf="this.sinBloque" class="marginClase"
@@ -275,23 +300,22 @@
                         </div>
 
                         <!-- Bloque 1 Dropable -->
-                        <div *ngIf="this.bloque1" class="marginClase">
+                        <div *ngIf="this.bloque1" class="marginClase" style="border: solid 2px black; padding: 5px 0;">
                             <div class="d-flex flex-column align-items-center" cdkDropList id="cdk-drop-list-11"
-                                [cdkDropListData]="botonesDrop" (cdkDropListDropped)="drop($event)"
-                                style="border: solid 2px black; padding: 10px 0;">
+                                [cdkDropListData]="botonesDrop" (cdkDropListDropped)="drop($event)">
                                 <div *ngFor="let boton of this.botonesDrop | slice:0:4; let i = index"
-                                    style="width: 75%" class="gap-2" cdkDrag>
+                                    style="width: 75%" class="gap-2 bloque1Drop" cdkDrag>
                                     <div [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                        class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo">
+                                        class="btn w-100 p-0  mb-1 boton-rectangulo">
                                         <!-- <i [ngClass]="boton.icon" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"></i> -->
                                         <img [src]="boton.imagen"
                                             [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                            style="width: 10%;" alt="">
-                                        {{boton.texto}}
+                                            style="width: 18px; float: left; margin-left: 20%; margin-right: 5px;" class="botones-alineados-padding" alt="">
+                                            <span style="float: left;">{{boton.texto}}</span>
                                     </div>
                                 </div>
                                 <div *ngFor="let boton of this.botonesDrop | slice:4:8; let i = index"
-                                    style="width: 75%" class="gap-2" cdkDrag>
+                                    style="width: 75%" class="gap-2 bloque1Drop" cdkDrag>
                                     <div [ngStyle]="{'background-color': boton.bg}"
                                         class="btn w-100 mb-2 boton-rectangulo">
                                     </div>
@@ -299,48 +323,45 @@
                             </div>
                         </div>
 
-
-
                         <!-- Bloque 2 Dropable -->
                         <div *ngIf="this.bloque2" class="d-flex flex-column align-items-center marginClase2"
-                            style="border: solid 2px black; padding: 10px 0;">
+                            style="border: solid 2px black; padding: 5px 0;">
 
-                            <div class="mt-2 d-flex gap-2" cdkDropListOrientation="horizontal" cdkDropList
+                            <div class="d-flex gap-1" cdkDropListOrientation="horizontal" cdkDropList
                                 id="cdk-drop-list-12" [cdkDropListData]="botonesDrop2"
                                 (cdkDropListDropped)="drop2($event, 1)" style="width: 75%;">
                                 <div *ngFor="let boton of this.botonesDrop2 | slice:0:3; let i = index" cdkDrag
-                                    style="width: 100%;" class="text-center">
-                                    <button type="button" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                        class="btn w-100 fs-3 boton-cuadrado">
+                                    style="width: 100%;" class="text-center mb-2 position-relative">
+                                    <button type="button"
+                                        [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
+                                        class="btn w-100 boton-cuadrado">
                                         <!-- <i [ngClass]="boton.icon" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"></i> -->
                                         <img [src]="boton.imagen2"
                                             [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                            style="width: 90%;" alt="">
+                                            style="width: 100%;" alt="">
                                     </button>
-                                    <span class="form-text">{{boton.texto}}</span>
+                                    <span class="form-text position-absolute" id="primero2" style="font-size: 10px; bottom: 0; left: 0; right: 0; ">{{boton.texto}}</span>
                                 </div>
 
                             </div>
 
-                            <div class="mt-2 d-flex gap-2 marginClase2" cdkDropListOrientation="horizontal" cdkDropList
+                            <div class="mt-1 d-flex gap-1 " cdkDropListOrientation="horizontal" cdkDropList
                                 id="cdk-drop-list-13" [cdkDropListData]="botonesDrop2"
                                 (cdkDropListDropped)="drop2($event, 2)" style="width: 75%;">
                                 <div *ngFor="let boton of this.botonesDrop2 | slice:3:6; let i = index" cdkDrag
-                                    style="width: 100%" class="text-center">
+                                    style="width: 100%" class="text-center mb-2 position-relative">
                                     <button type="button"
                                         [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                        class="btn w-100 fs-3 boton-cuadrado">
-                                        <!-- <i [ngClass]="boton.icon" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"></i> -->
-                                        <!-- <img [src]="boton.icon" style="width: 80%;" alt=""> -->
+                                        class="btn w-100 boton-cuadrado">
                                         <img [src]="boton.imagen2"
                                             [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                            style="width: 90%;" alt="">
+                                            style="width: 100%;" alt="">
                                     </button>
-                                    <span class="form-text">{{boton.texto}}</span>
+                                    <span class="form-text position-absolute" style="font-size: 10px; bottom: 0; left: 0; right: 0;">{{boton.texto}}</span>
                                 </div>
                             </div>
 
-                            <div class="mt-2 d-flex gap-2" style="width: 75%;">
+                            <div class="mt-1 d-flex gap-1" style="width: 75%;">
                                 <div *ngFor="let boton of this.botonesDrop2 | slice:6:9; let i = index"
                                     style="width: 100%">
                                     <button type="button"
@@ -350,7 +371,7 @@
                                 </div>
                             </div>
 
-                            <div class="mt-2 d-flex gap-2" style="width: 75%;">
+                            <div class="mt-1 d-flex gap-1" style="width: 75%;">
                                 <div *ngFor="let boton of this.botonesDrop2 | slice:9:12; let i = index"
                                     style="width: 100%">
                                     <button type="button"
@@ -364,28 +385,28 @@
 
 
                         <!-- Bloque 3 Dropable -->
-                        <div *ngIf="this.bloque3" class="marginClase" style="border: solid 2px black; padding: 10px 0;">
+                        <div *ngIf="this.bloque3" class="marginClase clase3" style="border: solid 2px black; padding: 5px 0;">
 
-                            <div class="mt-2 d-flex gap-2" cdkDropListOrientation="horizontal" cdkDropList
+                            <div class="d-flex gap-1" cdkDropListOrientation="horizontal" cdkDropList
                                 id="cdk-drop-list-14" [cdkDropListData]="botonesDrop3"
                                 (cdkDropListDropped)="drop3($event, 1)" style="width: 75%; margin: 0 auto;">
                                 <div *ngFor="let boton of this.botonesDrop3 | slice:0:3; let i = index" cdkDrag
-                                    style="width: 100%;" class="text-center">
+                                    style="width: 100%;" class="text-center position-relative mb-2">
                                     <button type="button"
                                         [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                        class="btn w-100 fs-3 boton-cuadrado">
+                                        class="btn w-100 fs-6 boton-cuadrado">
                                         <!-- <i [ngClass]="boton.icon" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"></i> -->
                                         <!-- <img [src]="boton.icon" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}" style="width: 80%;" alt=""> -->
                                         <img [src]="boton.imagen2"
                                             [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
                                             style="width: 100%;" alt="">
                                     </button>
-                                    <span class="form-text">{{boton.texto}}</span>
+                                    <span class="form-text position-absolute" style="font-size: 10px; bottom: 0; left: 0; right: 0; ">{{boton.texto}}</span>
                                 </div>
 
                             </div>
 
-                            <div class="mt-2 d-flex gap-2" style="width: 75%; margin: 0 auto;">
+                            <div class="mt-1 d-flex gap-1" style="width: 75%; margin: 0 auto;">
                                 <div *ngFor="let boton of this.botonesDrop3 | slice:3:6; let i = index"
                                     style="width: 100%">
                                     <button type="button"
@@ -395,17 +416,17 @@
                                 </div>
                             </div>
 
-                            <div class="d-flex flex-column align-items-center mt-2" cdkDropList id="cdk-drop-list-15"
+                            <div class="d-flex flex-column align-items-center mt-1" cdkDropList id="cdk-drop-list-15"
                                 [cdkDropListData]="botonesDrop3" (cdkDropListDropped)="drop3($event, 3)">
                                 <div *ngFor="let boton of this.botonesDrop3 | slice:6:10; let i = index"
-                                    style="width: 75%" class="gap-2" cdkDrag>
+                                    style="width: 75%" class="gap-1 bloque1Drop" cdkDrag>
                                     <div [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                        class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo">
+                                        class="btn w-100 p-0 fs-6 mb-2 boton-rectangulo">
                                         <!-- <i [ngClass]="boton.icon" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"></i> -->
                                         <img [src]="boton.imagen"
                                             [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                            style="width: 10%;" alt="">
-                                        {{boton.texto}}
+                                            style="width: 18px; float: left; margin-left: 20%; margin-right: 5px;" class="botones-alineados-padding" alt="">
+                                            <span style="float: left;">{{boton.texto}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -414,13 +435,13 @@
 
 
                         <!-- Bloque 4 Dropable -->
-                        <div *ngIf="this.bloque4" class="marginClase" style="border: solid 2px black; padding: 10px 0;">
+                        <div *ngIf="this.bloque4" class="marginClase clase4" style="border: solid 2px black; padding: 5px 0;">
 
-                            <div class="mt-2 d-flex gap-2" cdkDropListOrientation="horizontal" cdkDropList
+                            <div class=" d-flex gap-1" cdkDropListOrientation="horizontal" cdkDropList
                                 id="cdk-drop-list-16" [cdkDropListData]="botonesDrop4"
                                 (cdkDropListDropped)="drop4($event, 1)" style="width: 75%; margin: 0 auto;">
                                 <div *ngFor="let boton of this.botonesDrop4 | slice:0:3; let i = index"
-                                    style=" width: 31%;" cdkDrag class="rectanguloVertical">
+                                    style=" width: 33.3%;" cdkDrag class="rectanguloVertical">
                                     <button type="button" (dblclick)="datoBoton(boton, i, $event)"
                                         [ngStyle]="{'background-color': boton.bg, 'color': boton.color }"
                                         style="font-size: 11px; " class="btn w-100 p-0 rectanguloVertical">
@@ -433,11 +454,11 @@
                                 </div>
                             </div>
 
-                            <div class="d-flex mt-2 gap-2" cdkDropListOrientation="horizontal" cdkDropList
+                            <div class="d-flex mt-2 gap-1" cdkDropListOrientation="horizontal" cdkDropList
                                 id="cdk-drop-list-17" [cdkDropListData]="botonesDrop4"
                                 (cdkDropListDropped)="drop4($event, 2)" style="width: 75%; margin: 0 auto;">
                                 <div *ngFor="let boton of this.botonesDrop4 | slice:3:4; let i = index"
-                                    style="width: 69%;" class="gap-2 rectanguloVertical">
+                                    style="width: 66.6%;" class="gap-2 rectanguloVertical">
                                     <button type="button" (dblclick)="datoBoton(boton, i, $event)"
                                         [ngStyle]="{'background-color': boton.bg, 'color': boton.color }"
                                         class="btn w-100 p-0 rectanguloVertical">
@@ -445,7 +466,7 @@
                                 </div>
 
                                 <div *ngFor="let boton of this.botonesDrop4 | slice:4:5; let i = index"
-                                    style="width: 31%;" class="gap-2 rectanguloVertical" cdkDrag>
+                                    style="width: 33.3%;" class="gap-2 rectanguloVertical" cdkDrag>
                                     <button type="button" (dblclick)="datoBoton(boton, i, $event)"
                                         [ngStyle]="{'background-color': boton.bg, 'color': boton.color }"
                                         style="font-size: 11px;" class="btn w-100 p-0 rectanguloVertical">
@@ -459,7 +480,7 @@
 
                             <div class="d-flex justify-content-center mt-2">
                                 <div *ngFor="let boton of this.botonesDrop3 | slice:5:6; let i = index"
-                                    style="width: 75%" class="gap-2">
+                                    style="width: 75%" class="gap-2 ultimoBoton3">
                                     <div [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
                                         class="btn w-100 p-0 fs-5 mb-2 boton-rectangulo-img">
                                     </div>
@@ -470,24 +491,26 @@
                         </div>
 
 
-                        <div *ngIf="bloque1 || bloque2 || bloque3 || bloque4 || sinBloque" id="carouselExampleInterval"
-                            class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active" data-bs-interval="2000">
-                                    <img [src]="anunciosDrop[0].imagen" class="d-block w-100"
-                                        style="max-height: 90px; object-fit: fill;" alt="...">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="2000">
-                                    <img [src]="anunciosDrop[1].imagen" class="d-block w-100"
-                                        style="max-height: 90px; object-fit: fill;" alt="...">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="2000">
-                                    <img [src]="anunciosDrop[2].imagen" class="d-block w-100"
-                                        style="max-height: 90px; object-fit: fill;" alt="...">
-                                </div>
-                                <div class="carousel-item" data-bs-interval="2000">
-                                    <img [src]="anunciosDrop[3].imagen" class="d-block w-100"
-                                        style="max-height: 90px; object-fit: fill;" alt="...">
+                        <!-- *ngIf="bloque1 || bloque2 || bloque3 || bloque4 || sinBloque" -->
+                        <div >
+                            <div id="carouselAnunciosDemo" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active" data-bs-interval="4000">
+                                        <img [src]="anunciosDrop[0].imagen" class="d-block w-100"
+                                            style="max-height: 90px; object-fit: fill;" alt="...">
+                                    </div>
+                                    <div class="carousel-item" data-bs-interval="4000">
+                                        <img [src]="anunciosDrop[1].imagen" class="d-block w-100"
+                                            style="max-height: 90px; object-fit: fill;" alt="...">
+                                    </div>
+                                    <div class="carousel-item" data-bs-interval="4000">
+                                        <img [src]="anunciosDrop[2].imagen" class="d-block w-100"
+                                            style="max-height: 90px; object-fit: fill;" alt="...">
+                                    </div>
+                                    <div class="carousel-item" data-bs-interval="4000">
+                                        <img [src]="anunciosDrop[3].imagen" class="d-block w-100"
+                                            style="max-height: 90px; object-fit: fill;" alt="...">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -523,8 +546,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="text-center">
-                            <qrcode *ngIf="booleanQR" [qrdata]="urlQR" [elementType]="element" [width]="250"
+                            <a *ngIf="esMovil" [href]="this.urlQR">
+                                <qrcode *ngIf="booleanQR" [qrdata]="urlQR" [elementType]="element" [width]="250"
+                                    [errorCorrectionLevel]="'M'"></qrcode>
+                            </a>
+                            <qrcode *ngIf="!esMovil" [qrdata]="urlQR" [elementType]="element" [width]="250"
                                 [errorCorrectionLevel]="'M'"></qrcode>
+                            <a *ngIf="esMovil" [href]="this.urlQR">Menú gráfico IDR</a>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -535,4 +563,13 @@
         </div>
 
     </main>
+</div>
+
+<div class="contenedor position-relative container-2 pe-3 ps-3" style="z-index:10">
+    <section style="max-width: 900px; margin: 0 auto;">
+        <img src="../../../assets/escaneo.png" class="w-100" alt="" draggable="false">
+    </section>
+    <section style="max-width: 900px; margin: 0 auto;">
+        <img src="../../../assets/menu.png" class="w-100" alt="" draggable="false">
+    </section>
 </div>

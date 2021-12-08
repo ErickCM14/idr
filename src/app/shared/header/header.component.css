@@ -1,9 +1,18 @@
 @media(max-width: 768px) {
     .container-fluid{
-        justify-content: center;
+        /* justify-content: center; */
+    }
+
+    nav{
+        padding-top: 0px;
     }
 
     .container-fluid img{
-        height: 55px;
+        /* height: 55px; */
+        max-width: 250px;
     }
+}
+
+img{
+    max-width: 150px;
 }

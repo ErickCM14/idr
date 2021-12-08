@@ -4,16 +4,13 @@
     min-width: 300px;
 }
 
-main{
-    min-height: 71vh;
-}
-
 .boton-rectangulo{
-    height: 50px;
+    height: 30px;
 }
 
 .boton-cuadrado{
-    height: 100px;
+    height: 55px;
+    width: 55px;
 }
 
 .marginClase img{
@@ -31,14 +28,24 @@ main{
   }
 
 .carousel-inner{
-    max-height: 200px;
+    max-height: 180px;
 }
 
 img{
-    object-fit: cover;
-    max-height: 200px;
+    object-fit: contain;
+    max-height: 180px;
 }
 
 body {
     margin: 0 0 125px 0!important;
+}
+
+.botones-alineados-padding{
+    padding-top: 4px;
+}
+
+@media(min-width:480px){
+    .botones-alineados-padding{
+      margin-left: 40%!important;
+    }
 }

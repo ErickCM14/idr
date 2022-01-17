@@ -102,7 +102,7 @@ export class IlustracionesComponent implements OnInit {
 
   async cerrarSesion() {
     let cerrar = await this._auth.cerrarSesion()
-    window.location.href = "https://solucionesavanzadasyserviciosdigitales.com/"
+    window.location.href = "https://sas-digital.com.mx/"
   }
 
 

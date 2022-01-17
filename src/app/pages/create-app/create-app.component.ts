@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { concatMap, mergeMap } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { MenuModel } from 'src/app/models/menu.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 declare const Swal;
 declare const $: any;
 
@@ -546,13 +546,15 @@ export class CreateAppComponent implements OnInit {
   scrHeight: any;
   scrWidth: any;
 
+  datosUsuario: any
+
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?) {
     this.scrHeight = window.innerHeight;
     this.scrWidth = window.innerWidth;
   }
 
-  constructor(private _auth: AuthService, private toastr: ToastrService, private route: ActivatedRoute) {
+  constructor(private _auth: AuthService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router ) {
     this._id = localStorage.getItem('id')
     this.token = localStorage.getItem('token')
 
@@ -560,6 +562,7 @@ export class CreateAppComponent implements OnInit {
       this.esMovil = true;
     }
 
+    this.datosUsuario = JSON.parse(localStorage.getItem('usuario-sas'))
   }
 
   ngOnInit(): void {
@@ -1018,12 +1021,18 @@ export class CreateAppComponent implements OnInit {
             return this._auth.guardarDatosIdr(this.menuModel)
           })
         ).subscribe(resp => {
-          Swal.fire({
-            title: 'Datos guardados',
-            text: 'Escanee el QR generado y vea su Menú gráfico en su celular',
-            icon: "success"
-          })
-          this.urlQR = `https://idrenlinea.solucionesavanzadasyserviciosdigitales.com/#/idr/${this._id}?token=${this.token}`
+          // Swal.fire({
+          //   width: 300,
+          //   heightAuto: false,
+          //   title: 'Datos guardados',
+          //   text: 'Escanee el QR generado y vea su Menú gráfico en su celular',
+          //   icon: "success"
+          // })
+          Swal.fire('Datos guardados, escanee el QR generado')
+          // this.urlQR = `https://idrenlinea.solucionesavanzadasyserviciosdigitales.com/#/idr/${this._id}?token=${this.token}`
+          this.urlQR = `https://idrenlinea.sas-digital.com.mx/#/idr/${this._id}?token=${this.token}`
+          // this.urlQR = `${this._id}?token=${this.token}`
+          // this.urlQR = `${this.token}`
           this.booleanQR = true;
         }, error => {
           console.log(error);
@@ -1042,13 +1051,25 @@ export class CreateAppComponent implements OnInit {
         Swal.showLoading();
 
         this._auth.guardarDatosIdr(this.menuModel).subscribe(resp => {
-          Swal.fire({
-            title: 'Datos guardados',
-            text: 'Escanee el QR generado y vea su Menú gráfico en su celular',
-            icon: "success"
-          })
-          this.urlQR = `https://idrenlinea.solucionesavanzadasyserviciosdigitales.com/#/idr/${this._id}?token=${this.token}`
+          // Swal.fire('Datos guardados, escanee el QR generado')
+          // this.urlQR = `https://idrenlinea.solucionesavanzadasyserviciosdigitales.com/#/idr/${this._id}?token=${this.token}`
+          this.urlQR = `https://idrenlinea.sas-digital.com.mx/#/idr/${this._id}?token=${this.token}`
+          // this.urlQR = `${this._id}?token=${this.token}`
+          // this.urlQR = `${this.token}`
           this.booleanQR = true;
+          this.datosUsuario = {
+            ...this.datosUsuario,
+            url: this.urlQR
+          }
+          this._auth.enviarDatosMenu(this.datosUsuario).subscribe(resp => {
+            Swal.fire('Datos guardados, escanee el QR generado')
+          }, error => {
+            console.log(error);
+            this._auth.enviarDatosMenu2(this.datosUsuario).subscribe(res => {
+              Swal.fire('Datos guardados, escanee el QR generado')
+            })
+          })
+
         }, error => {
           console.log(error);
           Swal.close()
@@ -1335,7 +1356,7 @@ export class CreateAppComponent implements OnInit {
         }.bind(this);
 
       } else {
-        this.warningDropImagenes("Solo acepta imagenes formato .jpeg", "Formato de imagenes")
+        this.warningDropImagenes("Solo acepta imagenes formato jpg/jpeg", "Formato de imagenes")
         event.srcElement.value = ""
       }
     }
@@ -1349,5 +1370,10 @@ export class CreateAppComponent implements OnInit {
   }
 
 
+  navegarUrl(url: any){
+    $("#staticBackdrop").modal('hide');
+    // this.router.navigate(['/idr', this._id], { queryParams: { token: url } });
+
+  }
 
 }

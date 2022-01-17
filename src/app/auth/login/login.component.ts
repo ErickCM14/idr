@@ -15,23 +15,10 @@ export class LoginComponent implements OnInit {
   registroForm: FormGroup;
   loginForm: FormGroup;
   usuarioModel: UsuarioModel
-  // loginModel: LoginModel
+  
   mostrarContrasena: boolean = false;
 
   esRestringido: boolean = false;
-
-  array = [
-    {
-      nombre: 'hola',
-      email: 'esgarcia',
-      tel: '1234567890'
-    },
-    {
-      nombre: 'adios',
-      email: 'erick@gmail.com',
-      tel: '0987654321'
-    }
-  ]
 
   arrayTelefonos: any = []
   arrayDominios: any = []
@@ -129,11 +116,15 @@ export class LoginComponent implements OnInit {
       });
       Swal.showLoading();
 
-      this.auth.enviarEmailIngreso(this.registroForm.value).subscribe(resp => {
+      this.auth.enviarEmailIngresoRestringido(this.registroForm.value).subscribe(resp => {
 
-        // Swal.close()
       }, error => {
         console.log(error);
+        this.auth.enviarEmailIngresoRestringido2(this.registroForm.value).subscribe(resp => {
+
+        }, error => {
+          console.log(error);
+        })
       })
 
       setInterval(() => {
@@ -194,8 +185,22 @@ export class LoginComponent implements OnInit {
               Swal.close()
             })
           }, error => {
-            console.log(error);
-            Swal.close()
+            // console.log(error);
+            this.auth.enviarEmailIngreso2(this.usuarioModel).subscribe(resp => {
+
+              this.auth.enviarEmailAccesos2(this.usuarioModel).subscribe(resp => {
+                // console.log(resp);
+                Swal.fire({
+                  title: 'Registrado correctamente',
+                  text: `¡Bienvenido ${this.usuarioModel.nombre}!, ingresa las credenciales que se te enviaron via correo, revisa tu bandeja de entrada, promociones o spam`,
+                  icon: 'success'
+                })
+              }, error => {
+                console.log(error);
+                Swal.close()
+              })
+            })
+
           })
 
         }, error => {
@@ -241,6 +246,10 @@ export class LoginComponent implements OnInit {
 
     this.auth.iniciarSesion(this.loginForm.value).subscribe(next => {
       this._id = next['user']['id'];
+      
+      this.auth.obtenerUsuario(this._id, localStorage.getItem('token')).subscribe(resp => {
+        localStorage.setItem('usuario-sas', JSON.stringify(resp))
+      })
       Swal.close()
     }, error => {
       console.log(error);

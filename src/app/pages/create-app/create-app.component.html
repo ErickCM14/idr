@@ -4,13 +4,13 @@
 <div class="contenedor">
     <main class="container pt-4 pb-5">
         <div class="row pt-4 position-relative" cdkDropListGroup>
-            <div class="col-9">
-                <div class="banderas mb-2" style="float: right;">
-                    <button class="btn me-3 p-0" >
-                        <img src="../../../assets/bandera-inglesa-header.png" alt="Bandera inglesa">
+            <div class="col-9 position-relative" >
+                <div class="banderas mb-2 position-absolute" style="z-index: 10001; right: 0; top: 0; margin-top: -40px;">
+                    <button class="btn me-3 p-0" style="z-index: 1001;" >
+                        <img src="../../../assets/bandera-inglesa-header.png" class="bandera-b w-100 p-0" alt="Bandera inglesa">
                     </button>
-                    <button class="btn p-0">
-                        <img src="../../../assets/bandera-espanola-header.png" alt="Bandera española">
+                    <button class="btn p-0" style="z-index: 1001;">
+                        <img src="../../../assets/bandera-espanola-header.png" class="bandera-b w-100 p-0" alt="Bandera española">
                     </button>
                 </div>
                 <h1 class="text-center fs-4" style="color:#2B6EAB; font-weight: 700; margin: 0;">IDR - Demo en Línea
@@ -76,7 +76,7 @@
                         <div cdkDropList id="cdk-drop-list-0" [cdkDropListData]="btnDrag1" class="d-flex flex-column"
                             style="width: 100%; ">
                             <div *ngFor="let boton of this.btnDrag1; let i = index" class="m-2"
-                                style="min-width: 80px;" cdkDrag>
+                                style="min-width: 90px;" cdkDrag> <!--80px-->
                                 <button type="button" (dblclick)="datoBoton(boton, i, $event)"
                                     [ngStyle]="{'background-color': boton.bg, 'color': boton.color }"
                                     class="btn w-100 p-0 fs-6 boton-rectangulo dropBtnRectangulo">
@@ -266,7 +266,7 @@
                                     cdkDrag>
                                     <p class="w-100"> Anuncio {{ i+1 }}</p>
                                     <p *ngIf="!anuncio.imagen">Arrastre el anuncio aquí</p>
-                                    <img [src]="anuncio.imagen" class="w-100" style="max-height: 65px;" alt="">
+                                    <img [src]="anuncio.imagen" class="w-100" style="max-height: 65px; object-fit: cover;" alt="">
                                 </div>
 
                             </div>
@@ -278,7 +278,7 @@
 
                 <button type="button" (click)="guardar()" class="btn w-50 " id="boton-submit"
                     style="background-color: #F2F2F2; border: solid 2px gray; font-size: 13px;">Generar código 
-                    QR y escanear desde su teléfono móvil, o toca el códicgo QR o el Bit.Ly en tu pantalla Touch.
+                    QR y escanear desde su teléfono móvil, o toca el código QR o el Bit.Ly en tu pantalla Touch.
                     </button>
 
             </div>
@@ -497,19 +497,19 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item active" data-bs-interval="4000">
                                         <img [src]="anunciosDrop[0].imagen" class="d-block w-100"
-                                            style="max-height: 90px; object-fit: fill;" alt="...">
+                                            style="max-height: 98px; width: 100%; object-fit: cover;" alt="...">
                                     </div>
                                     <div class="carousel-item" data-bs-interval="4000">
                                         <img [src]="anunciosDrop[1].imagen" class="d-block w-100"
-                                            style="max-height: 90px; object-fit: fill;" alt="...">
+                                            style="max-height: 98px; width: 100%; object-fit: cover;" alt="...">
                                     </div>
                                     <div class="carousel-item" data-bs-interval="4000">
                                         <img [src]="anunciosDrop[2].imagen" class="d-block w-100"
-                                            style="max-height: 90px; object-fit: fill;" alt="...">
+                                            style="max-height: 98px; width: 100%; object-fit: cover;" alt="...">
                                     </div>
                                     <div class="carousel-item" data-bs-interval="4000">
                                         <img [src]="anunciosDrop[3].imagen" class="d-block w-100"
-                                            style="max-height: 90px; object-fit: fill;" alt="...">
+                                            style="max-height: 98px; width: 100%; object-fit: cover;" alt="...">
                                     </div>
                                 </div>
                             </div>
@@ -546,13 +546,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="text-center">
-                            <a *ngIf="esMovil" [href]="this.urlQR">
+                            <a *ngIf="esMovil" [href]="this.urlQR" (click)="navegarUrl(this.urlQR)" >
                                 <qrcode *ngIf="booleanQR" [qrdata]="urlQR" [elementType]="element" [width]="250"
                                     [errorCorrectionLevel]="'M'"></qrcode>
                             </a>
                             <qrcode *ngIf="!esMovil" [qrdata]="urlQR" [elementType]="element" [width]="250"
                                 [errorCorrectionLevel]="'M'"></qrcode>
-                            <a *ngIf="esMovil" [href]="this.urlQR">Menú gráfico IDR</a>
+                            <!-- <a *ngIf="esMovil" (click)="navegarUrl(this.urlQR)">Menú gráfico IDR</a> -->
+                            <a *ngIf="esMovil" (click)="navegarUrl(this.urlQR)" [href]="this.urlQR">Menú gráfico IDR</a>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -566,10 +567,10 @@
 </div>
 
 <div class="contenedor position-relative container-2 pe-3 ps-3" style="z-index:10">
-    <section style="max-width: 900px; margin: 0 auto;">
-        <img src="../../../assets/escaneo.png" class="w-100" alt="" draggable="false">
+    <section class="imagen-baja" style="max-width: 900px; margin: 0 auto;">
+        <img src="../../../assets/escaneo.png" class="w-100" alt="Codigo QR" draggable="false">
     </section>
-    <section style="max-width: 900px; margin: 0 auto;">
-        <img src="../../../assets/menu.png" class="w-100" alt="" draggable="false">
+    <section class="imagen-baja" style="max-width: 900px; margin: 0 auto;">
+        <img src="../../../assets/menu.png" class="w-100" alt="Menú IDR" draggable="false">
     </section>
 </div>

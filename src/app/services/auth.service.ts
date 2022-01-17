@@ -11,10 +11,12 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private url = "https://idr-backend-c846inyxt-idr-enlinea.vercel.app/v1/"
+  // private url = "https://idr-backend-c846inyxt-idr-enlinea.vercel.app/v1/"
+  private url = "https://idr-backend.vercel.app/v1/"
   // private url = "http://localhost:4001/v1/"
   // private urlEmails = "http://localhost:3000/"
   private urlEmails = "https://idrenlinea-api.herokuapp.com/"
+  private urlEmails2 = "https://idrenlinea-api3.herokuapp.com/"
   private registrar = `${this.url}usuarios/`;
   private login = `${this.url}usuarios/entrar`;
   // private emailRestringido = `${this.url}usuarios/usuario-restringido`;
@@ -22,7 +24,13 @@ export class AuthService {
   private filtro = `${this.url}filtro/`;
   private urlCloudinary = "https://api.cloudinary.com/v1_1/idrenlinea/image/upload"
   private enviarEmail = `${this.urlEmails}enviar-email`
+  private enviarEmail2 = `${this.urlEmails2}enviar-email`
+  private enviarEmailRestringido = `${this.urlEmails}enviar-email-restringido`
+  private enviarEmailRestringido2 = `${this.urlEmails2}enviar-email-restringido`
   private enviarAccesos = `${this.urlEmails}enviar-accesos`
+  private enviarAccesos2 = `${this.urlEmails2}enviar-accesos`
+  private enviarDatos = `${this.urlEmails}enviar-datos`
+  private enviarDatos2 = `${this.urlEmails2}enviar-datos`
 
   headers: any;
   token: string;
@@ -40,7 +48,7 @@ export class AuthService {
     }
   }
 
-  cerrarSesion(){
+  cerrarSesion() {
     return new Promise(resolve => {
       localStorage.removeItem('id');
       localStorage.removeItem('token');
@@ -92,6 +100,15 @@ export class AuthService {
     })
   }
 
+  obtenerUsuario(id: string, token: string): Observable<any> {
+    return this.http.get(this.registrar + id, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + token
+      }
+    })
+  }
+
   obtenerDatosFiltro(): Observable<any> {
     return this.http.get(this.filtro)
   }
@@ -100,30 +117,50 @@ export class AuthService {
   //   return this.http.post(this.emailRestringido, body)
   // }
 
-  enviarEmailAccesos(body: any): Observable<any>{
+  enviarEmailAccesos(body: any): Observable<any> {
     return this.http.post(this.enviarAccesos, body)
   }
+  enviarEmailAccesos2(body: any): Observable<any> {
+    return this.http.post(this.enviarAccesos2, body)
+  }
 
-  enviarEmailIngreso(body: any): Observable<any>{
+  enviarEmailIngreso(body: any): Observable<any> {
     return this.http.post(this.enviarEmail, body)
+  }
+  enviarEmailIngreso2(body: any): Observable<any> {
+    return this.http.post(this.enviarEmail2, body)
+  }
+
+  enviarEmailIngresoRestringido(body: any): Observable<any> {
+    return this.http.post(this.enviarEmailRestringido, body)
+  }
+  enviarEmailIngresoRestringido2(body: any): Observable<any> {
+    return this.http.post(this.enviarEmailRestringido2, body)
+  }
+
+  enviarDatosMenu(body: any): Observable<any>{
+    return this.http.post(this.enviarDatos, body)
+  }
+  enviarDatosMenu2(body: any): Observable<any>{
+    return this.http.post(this.enviarDatos2, body)
   }
 
   uploadImagen(data: any): Observable<any> {
     return this.http.post(this.urlCloudinary, data)
   }
 
-  validarToken(): Observable<boolean>{
-    
+  validarToken(): Observable<boolean> {
+
     return this.http.get(`${this.idr}validate`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Token ' + this.token
       }
     })
-    .pipe(
-      map(resp => true),
-      catchError(error => of(false))
-    )
+      .pipe(
+        map(resp => true),
+        catchError(error => of(false))
+      )
 
   }
 

@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   registroForm: FormGroup;
   loginForm: FormGroup;
   usuarioModel: UsuarioModel
-  
+
   mostrarContrasena: boolean = false;
 
   esRestringido: boolean = false;
@@ -88,7 +88,8 @@ export class LoginComponent implements OnInit {
 
   async guardarRegistro() {
 
-    if (this.registroForm.invalid) { this.registroForm.markAllAsTouched();
+    if (this.registroForm.invalid) {
+      this.registroForm.markAllAsTouched();
 
       if (!this.registroForm.value.politicas) {
         this.politicasBoolean = false;
@@ -136,7 +137,7 @@ export class LoginComponent implements OnInit {
 
     }
 
-    const password = this.generatePasswordRand();
+    const password = await this.generatePasswordRand();
     // console.log(password);
 
     Swal.fire({
@@ -167,7 +168,7 @@ export class LoginComponent implements OnInit {
         let telefono2 = lada2 + this.registroForm.value['telefono2']
         this.usuarioModel.telefono = telefono
         this.usuarioModel.telefono2 = telefono2
-        this.usuarioModel.password = password;
+        this.usuarioModel.password = password
 
         this.auth.registro(this.usuarioModel).subscribe(next => {
 
@@ -224,14 +225,17 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  generatePasswordRand(): string {
+  generatePasswordRand() {
     let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789()#$%@&*+!¡,-_¿?<>";
 
-    var pass = "";
-    for (let i = 0; i < 10; i++) {
-      pass += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return pass;
+    let pass = "";
+    return new Promise((resolve, reject) => {
+      for (let i = 0; i < 10; i++) {
+        pass += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      resolve(pass);
+    })
+
   }
 
   iniciarSesion() {
@@ -246,7 +250,7 @@ export class LoginComponent implements OnInit {
 
     this.auth.iniciarSesion(this.loginForm.value).subscribe(next => {
       this._id = next['user']['id'];
-      
+
       this.auth.obtenerUsuario(this._id, localStorage.getItem('token')).subscribe(resp => {
         localStorage.setItem('usuario-sas', JSON.stringify(resp))
       })

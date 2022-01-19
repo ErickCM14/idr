@@ -5,5 +5,5 @@ export class UsuarioModel{
     empresa: string;
     telefono: string;
     telefono2: string;
-    password: string;
+    password: any;
 }

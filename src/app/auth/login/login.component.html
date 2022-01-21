@@ -97,6 +97,7 @@
 
                     <div class="col-12">
                         <p *ngIf="esRestringido" class="text-danger text-center">Out of service</p>
+                        <p *ngIf="emailExiste" class="text-danger text-center">Su e-mail ya está registrado con contraseña asignada. Si no recuerda su contraseña, favor de recuperar contraseña</p>
                     </div>
 
                 </form>
@@ -130,10 +131,11 @@
                             requerido</span>
                     </div>
 
-                    <div class="col-12 mb-2">
-                        <button type="submit" class="btn btn-secondary btn-sm w-100">
+                    <div class="col-12 mb-2 d-flex justify-content-between">
+                        <button type="submit" class="btn btn-secondary btn-sm" style="width: 45%;">
                             INGRESAR
                         </button>
+                        <button (click)="nuevaContrasena()" class="btn btn-secondary btn-sm" style="width: 45%;">RECUPERAR CONTRASEÑA</button>
                     </div>
 
                 </form>

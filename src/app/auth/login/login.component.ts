@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { Router } from '@angular/router';
+import { LoginModel } from 'src/app/models/login.model';
 declare const Swal
 
 @Component({
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   registroForm: FormGroup;
   loginForm: FormGroup;
   usuarioModel: UsuarioModel
+  loginModel: LoginModel
 
   mostrarContrasena: boolean = false;
 
@@ -26,6 +28,8 @@ export class LoginComponent implements OnInit {
   cargandoFiltros: boolean = true;
   private _id: string;
   politicasBoolean: boolean = true;
+
+  emailExiste: boolean = false;
 
   constructor(private auth: AuthService, private fb: FormBuilder, private router: Router) { }
 
@@ -210,10 +214,11 @@ export class LoginComponent implements OnInit {
           if (error.error.includes('Email ya existe')) {
             Swal.fire({
               title: 'Email ya existe',
-              text: 'Este email ya ha sido registrado',
+              text: 'Su e-mail ya está registrado con contraseña asignada. Si no recuerda su contraseña, favor de recuperar contraseña',
               icon: 'error',
               confirmButtonText: 'Aceptar'
             })
+            this.emailExiste = true;
           }
         }, () => {
           this.registroForm.reset({
@@ -221,6 +226,67 @@ export class LoginComponent implements OnInit {
           })
         })
 
+      }
+    })
+  }
+
+  async nuevaContrasena() {
+    let password = await this.generatePasswordRand()
+    Swal.fire({
+      title: '¿Desea restaurar su contraseña?',
+      text: 'Se enviará un email a su correo electrónico con los nuevos accesos para ingresar a IDR demo en línea',
+      icon: 'question',
+      showConfirmButton: true,
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Aceptar'
+    }).then(resp => {
+
+      if (resp.value) {
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: 'info',
+          text: 'Validando información'
+        });
+        Swal.showLoading();
+
+        let hola = this.loginForm.get('email').value
+        console.log(hola);
+        console.log(password);
+        const usuario = {
+          password: password,
+          email: hola
+        }
+        console.log(usuario);
+
+        this.auth.modificarPassword(usuario).subscribe(resp => {
+          console.log(resp);
+          this.auth.enviarEmailNuevaContrasena(usuario).subscribe(resp => {
+            console.log(resp);
+            Swal.fire({
+              title: 'Contraseña restaurada correctamente',
+              text: `Su nueva contaseña ha sido enviada a su correo`,
+              icon: 'success'
+            })
+          }, error => {
+            this.auth.enviarEmailNuevaContrasena2(usuario).subscribe(resp => {
+              console.log(resp);
+              Swal.fire({
+                title: 'Contraseña restaurada correctamente',
+                text: `Su nueva contaseña ha sido enviada a su correo`,
+                icon: 'success'
+              })
+            })
+          })
+        }, error => {
+          console.log(error);
+          Swal.fire({
+            title: 'El email no existe',
+            text: 'Este email no ha sido registrado',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          })
+        })
       }
     })
   }

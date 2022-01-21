@@ -18,6 +18,7 @@ export class AuthService {
   private urlEmails = "https://idrenlinea-api.herokuapp.com/"
   private urlEmails2 = "https://idrenlinea-api3.herokuapp.com/"
   private registrar = `${this.url}usuarios/`;
+  private modificar = `${this.url}usuarios/modificar`;
   private login = `${this.url}usuarios/entrar`;
   // private emailRestringido = `${this.url}usuarios/usuario-restringido`;
   private idr = `${this.url}idr/`;
@@ -29,6 +30,8 @@ export class AuthService {
   private enviarEmailRestringido2 = `${this.urlEmails2}enviar-email-restringido`
   private enviarAccesos = `${this.urlEmails}enviar-accesos`
   private enviarAccesos2 = `${this.urlEmails2}enviar-accesos`
+  private enviarNuevaContrasena = `${this.urlEmails}enviar-nueva-contrasena`
+  private enviarNuevaContrasena2 = `${this.urlEmails2}enviar-nueva-contrasena`
   private enviarDatos = `${this.urlEmails}enviar-datos`
   private enviarDatos2 = `${this.urlEmails2}enviar-datos`
 
@@ -113,6 +116,10 @@ export class AuthService {
     return this.http.get(this.filtro)
   }
 
+  modificarPassword(body:any){
+    return this.http.put(this.modificar, body)
+  }
+
   // enviarEmailRestriccion(body: any): Observable<any>{
   //   return this.http.post(this.emailRestringido, body)
   // }
@@ -122,6 +129,13 @@ export class AuthService {
   }
   enviarEmailAccesos2(body: any): Observable<any> {
     return this.http.post(this.enviarAccesos2, body)
+  }
+
+  enviarEmailNuevaContrasena(body: any): Observable<any> {
+    return this.http.post(this.enviarNuevaContrasena, body)
+  }
+  enviarEmailNuevaContrasena2(body: any): Observable<any> {
+    return this.http.post(this.enviarNuevaContrasena2, body)
   }
 
   enviarEmailIngreso(body: any): Observable<any> {

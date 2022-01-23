@@ -90,14 +90,14 @@
                     <p *ngIf="!politicasBoolean" class="form-text text-center text-danger m-0 ">*Debe aceptar las politicas de privacidad</p>
 <!-- !politicasBoolean -->
                     <div class="col-12 mt-2 mb-2">
-                        <button type="submit" class="btn btn-secondary btn-sm w-100" [disabled]="cargandoFiltros">
+                        <button type="submit" class="btn btn-secondary btn-sm w-100" >
                             ENVIAR CONTRASEÑA POR E-MAIL
                         </button>
                     </div>
 
                     <div class="col-12">
                         <p *ngIf="esRestringido" class="text-danger text-center">Out of service</p>
-                        <p *ngIf="emailExiste" class="text-danger text-center">Su e-mail ya está registrado con contraseña asignada. Si no recuerda su contraseña, favor de recuperar contraseña</p>
+                        <p *ngIf="emailExiste" class="text-danger text-center">Su e-mail ya está registrado con contraseña asignada. Si no recuerda su contraseña, favor de poner su e-mail en el campo que dice "Usuario" y después seleccione el botón de recuperar contraseña</p>
                     </div>
 
                 </form>
@@ -135,7 +135,7 @@
                         <button type="submit" class="btn btn-secondary btn-sm" style="width: 45%;">
                             INGRESAR
                         </button>
-                        <button (click)="nuevaContrasena()" class="btn btn-secondary btn-sm" style="width: 45%;">RECUPERAR CONTRASEÑA</button>
+                        <button (click)="nuevaContrasena()" type="button" class="btn btn-secondary btn-sm" style="width: 45%;">RECUPERAR CONTRASEÑA</button>
                     </div>
 
                 </form>

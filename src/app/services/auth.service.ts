@@ -34,6 +34,8 @@ export class AuthService {
   private enviarNuevaContrasena2 = `${this.urlEmails2}enviar-nueva-contrasena`
   private enviarDatos = `${this.urlEmails}enviar-datos`
   private enviarDatos2 = `${this.urlEmails2}enviar-datos`
+  private enviarDatosLogin = `${this.urlEmails}enviar-inicio-sesion`
+  private enviarDatosLogin2 = `${this.urlEmails2}enviar-inicio-sesion`
 
   headers: any;
   token: string;
@@ -157,6 +159,13 @@ export class AuthService {
   }
   enviarDatosMenu2(body: any): Observable<any>{
     return this.http.post(this.enviarDatos2, body)
+  }
+
+  enviarDatosAccesosLogin(body: any): Observable<any>{
+    return this.http.post(this.enviarDatosLogin, body)
+  }
+  enviarDatosAccesosLogin2(body: any): Observable<any>{
+    return this.http.post(this.enviarDatosLogin2, body)
   }
 
   uploadImagen(data: any): Observable<any> {

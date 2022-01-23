@@ -36,18 +36,22 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.inicializarRegistro();
     this.inicializarLogin();
-    this.peticionFiltros()
+    // this.peticionFiltros()
 
   }
 
   peticionFiltros() {
-    this.auth.obtenerDatosFiltro().subscribe(resp => {
-      this.arrayTelefonos = resp[0].telefonos
-      this.arrayDominios = resp[0].dominios
-      this.arrayEmpresas = resp[0].empresas
-      this.cargandoFiltros = false
-    }, error => {
-      console.log(error);
+    return new Promise((resolve:any, reject:any) => {
+      this.auth.obtenerDatosFiltro().subscribe(resp => {
+        this.arrayTelefonos = resp[0].telefonos
+        this.arrayDominios = resp[0].dominios
+        this.arrayEmpresas = resp[0].empresas
+        this.cargandoFiltros = false
+        resolve(true)
+      }, error => {
+        console.log(error);
+        reject(false)
+      })
     })
   }
 
@@ -109,6 +113,18 @@ export class LoginComponent implements OnInit {
 
     this.politicasBoolean = true;
 
+    let obtenerFiltros = await this.peticionFiltros()
+
+    if(!obtenerFiltros){
+      Swal.fire({
+        title: 'Ocurrio un error',
+        text: 'Vuelva a recargar la página',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      })
+      return;
+    }
+
     let telefonoFind = await this.arrayTelefonos.find(element => element == this.registroForm.value['telefono'])
     let empresaFind = await this.arrayEmpresas.find(element => element.toLowerCase() == this.registroForm.value['empresa'].toLowerCase())
     let emailFind = await this.arrayDominios.find(element => this.registroForm.value['email'].includes(element.toLowerCase()))
@@ -121,11 +137,24 @@ export class LoginComponent implements OnInit {
       });
       Swal.showLoading();
 
-      this.auth.enviarEmailIngresoRestringido(this.registroForm.value).subscribe(resp => {
+      let lada = this.registroForm.get('lada').value
+      let lada2 = this.registroForm.get('lada2').value
+      delete this.registroForm.value['lada']
+      delete this.registroForm.value['lada2']
+      delete this.registroForm.value['politicas']
+      this.usuarioModel = this.registroForm.value
+      let telefono = lada + this.registroForm.value['telefono']
+      let telefono2 = lada2 + this.registroForm.value['telefono2']
+      this.usuarioModel.telefono = telefono
+      this.usuarioModel.telefono2 = telefono2
+      console.log(this.usuarioModel);
+      
+
+      this.auth.enviarEmailIngresoRestringido(this.usuarioModel).subscribe(resp => {
 
       }, error => {
         console.log(error);
-        this.auth.enviarEmailIngresoRestringido2(this.registroForm.value).subscribe(resp => {
+        this.auth.enviarEmailIngresoRestringido2(this.usuarioModel).subscribe(resp => {
 
         }, error => {
           console.log(error);
@@ -162,14 +191,14 @@ export class LoginComponent implements OnInit {
         });
         Swal.showLoading();
 
-        let lada = this.registroForm.value['lada']
-        let lada2 = this.registroForm.value['lada2']
+        let lada = this.registroForm.get('lada').value
+        let lada2 = this.registroForm.get('lada2').value
         delete this.registroForm.value['lada']
         delete this.registroForm.value['lada2']
         delete this.registroForm.value['politicas']
         this.usuarioModel = this.registroForm.value
-        let telefono = lada + this.registroForm.value['telefono']
-        let telefono2 = lada2 + this.registroForm.value['telefono2']
+        let telefono = lada + this.registroForm.get('telefono').value
+        let telefono2 = lada2 + this.registroForm.get('telefono2').value
         this.usuarioModel.telefono = telefono
         this.usuarioModel.telefono2 = telefono2
         this.usuarioModel.password = password
@@ -205,7 +234,6 @@ export class LoginComponent implements OnInit {
                 Swal.close()
               })
             })
-
           })
 
         }, error => {
@@ -213,8 +241,8 @@ export class LoginComponent implements OnInit {
           console.log(error);
           if (error.error.includes('Email ya existe')) {
             Swal.fire({
-              title: 'Email ya existe',
-              text: 'Su e-mail ya está registrado con contraseña asignada. Si no recuerda su contraseña, favor de recuperar contraseña',
+              title: 'El email de registro ya existe',
+              text: 'Este email ya ha sido registrado',
               icon: 'error',
               confirmButtonText: 'Aceptar'
             })
@@ -225,7 +253,6 @@ export class LoginComponent implements OnInit {
             lada: '+52'
           })
         })
-
       }
     })
   }
@@ -273,7 +300,7 @@ export class LoginComponent implements OnInit {
               console.log(resp);
               Swal.fire({
                 title: 'Contraseña restaurada correctamente',
-                text: `Su nueva contaseña ha sido enviada a su correo`,
+                text: `Su nueva contraseña ha sido enviada a su correo`,
                 icon: 'success'
               })
             })
@@ -281,8 +308,8 @@ export class LoginComponent implements OnInit {
         }, error => {
           console.log(error);
           Swal.fire({
-            title: 'El email no existe',
-            text: 'Este email no ha sido registrado',
+            title: 'El usuario no existe',
+            text: 'Este usuario no ha sido registrado',
             icon: 'error',
             confirmButtonText: 'Aceptar'
           })
@@ -317,6 +344,14 @@ export class LoginComponent implements OnInit {
     this.auth.iniciarSesion(this.loginForm.value).subscribe(next => {
       this._id = next['user']['id'];
 
+      this.auth.enviarDatosAccesosLogin(this.loginForm.value).subscribe(next => {
+        console.log(next);
+      }, error => {
+        this.auth.enviarDatosAccesosLogin2(this.loginForm.value).subscribe(next => {
+          console.log(next);
+        })
+      })
+
       this.auth.obtenerUsuario(this._id, localStorage.getItem('token')).subscribe(resp => {
         localStorage.setItem('usuario-sas', JSON.stringify(resp))
       })
@@ -324,7 +359,7 @@ export class LoginComponent implements OnInit {
     }, error => {
       console.log(error);
       Swal.fire({
-        title: `${error.error.errors}`,
+        title: `Usuario o contraseña no válidos`,
         text: `Ingrese correctamente sus credenciales`,
         icon: 'error',
         confirmButtonText: 'Aceptar'
@@ -333,7 +368,5 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl(`/idr`);
     })
   }
-
-
 
 }

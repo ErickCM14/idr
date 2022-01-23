@@ -147,8 +147,6 @@ export class LoginComponent implements OnInit {
       let telefono2 = lada2 + this.registroForm.value['telefono2']
       this.usuarioModel.telefono = telefono
       this.usuarioModel.telefono2 = telefono2
-      console.log(this.usuarioModel);
-      
 
       this.auth.enviarEmailIngresoRestringido(this.usuarioModel).subscribe(resp => {
 
@@ -277,27 +275,21 @@ export class LoginComponent implements OnInit {
         });
         Swal.showLoading();
 
-        let hola = this.loginForm.get('email').value
-        console.log(hola);
-        console.log(password);
+        let email = this.loginForm.get('email').value
         const usuario = {
           password: password,
-          email: hola
+          email: email
         }
-        console.log(usuario);
 
         this.auth.modificarPassword(usuario).subscribe(resp => {
-          console.log(resp);
           this.auth.enviarEmailNuevaContrasena(usuario).subscribe(resp => {
-            console.log(resp);
             Swal.fire({
               title: 'Contraseña restaurada correctamente',
-              text: `Su nueva contaseña ha sido enviada a su correo`,
+              text: `Su nueva contraseña ha sido enviada a su correo`,
               icon: 'success'
             })
           }, error => {
             this.auth.enviarEmailNuevaContrasena2(usuario).subscribe(resp => {
-              console.log(resp);
               Swal.fire({
                 title: 'Contraseña restaurada correctamente',
                 text: `Su nueva contraseña ha sido enviada a su correo`,
@@ -345,10 +337,10 @@ export class LoginComponent implements OnInit {
       this._id = next['user']['id'];
 
       this.auth.enviarDatosAccesosLogin(this.loginForm.value).subscribe(next => {
-        console.log(next);
+        
       }, error => {
         this.auth.enviarDatosAccesosLogin2(this.loginForm.value).subscribe(next => {
-          console.log(next);
+          
         })
       })
 

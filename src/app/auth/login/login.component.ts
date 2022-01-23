@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { Router } from '@angular/router';
 import { LoginModel } from 'src/app/models/login.model';
+import { ToastrService } from 'ngx-toastr';
 declare const Swal
 
 @Component({
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   emailExiste: boolean = false;
 
-  constructor(private auth: AuthService, private fb: FormBuilder, private router: Router) { }
+  constructor(private auth: AuthService, private fb: FormBuilder, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.inicializarRegistro();
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   peticionFiltros() {
-    return new Promise((resolve:any, reject:any) => {
+    return new Promise((resolve: any, reject: any) => {
       this.auth.obtenerDatosFiltro().subscribe(resp => {
         this.arrayTelefonos = resp[0].telefonos
         this.arrayDominios = resp[0].dominios
@@ -115,7 +116,7 @@ export class LoginComponent implements OnInit {
 
     let obtenerFiltros = await this.peticionFiltros()
 
-    if(!obtenerFiltros){
+    if (!obtenerFiltros) {
       Swal.fire({
         title: 'Ocurrio un error',
         text: 'Vuelva a recargar la página',
@@ -256,6 +257,20 @@ export class LoginComponent implements OnInit {
   }
 
   async nuevaContrasena() {
+    if (!this.loginForm.get('email').value) {
+      this.toastr.warning(`Debe escribir su usuario para restaurar su contraseña`, `Campo "Usuario" vacío`, {
+        timeOut: 5000,
+      });
+      return;
+    }
+
+    if (this.loginForm.controls['email'].errors) {
+      this.toastr.warning(`Debe escribir correctamente su usuario`, `Advertencia`, {
+        timeOut: 5000,
+      });
+      return;
+    }
+
     let password = await this.generatePasswordRand()
     Swal.fire({
       title: '¿Desea restaurar su contraseña?',
@@ -337,10 +352,10 @@ export class LoginComponent implements OnInit {
       this._id = next['user']['id'];
 
       this.auth.enviarDatosAccesosLogin(this.loginForm.value).subscribe(next => {
-        
+
       }, error => {
         this.auth.enviarDatosAccesosLogin2(this.loginForm.value).subscribe(next => {
-          
+
         })
       })
 

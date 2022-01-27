@@ -18,7 +18,7 @@
                 <h2 class="text-center mb-2 fs-6" style="color:#2B6EAB; font-weight: 700;">Interactive Digital Response
                 </h2>
                 <div class="d-flex justify-content-between w-100 mb-3">
-                    <a href="javascript:void(0)" class="btn btn-sm botonHeader"
+                    <a href="javascript:void(0)" class="btn btn-sm botonHeader " data-bs-toggle="modal" data-bs-target="#modalTutorial"
                         style="background-color: #F2F2F2; border: solid 2px gray;">Video Tutorial</a>
                     <button type="button" class="btn btn-sm me-3 botonHeader"
                         style="background-color: #F2F2F2; border: solid 2px gray;" (click)="cerrarSesion()">Cerrar
@@ -574,3 +574,28 @@
         <img src="../../../assets/menu.png" class="w-100" alt="Menú IDR" draggable="false">
     </section>
 </div>
+
+
+
+<!-- Modal de video -->
+<div class="modal" id="modalTutorial" tabindex="-1" aria-labelledby="modalTutorialLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Video tutorial</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div style="max-width: 700px; margin: 0 auto;" >
+                <video src="../../../assets/Tutorial-IDR-Demo-en-linea.mp4" controls class="w-100">
+                </video>
+            </div>
+            
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>

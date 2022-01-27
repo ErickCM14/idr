@@ -555,6 +555,7 @@ export class CreateAppComponent implements OnInit {
   }
 
   constructor(private _auth: AuthService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router ) {
+    document.oncontextmenu = function(){return false}
     this._id = localStorage.getItem('id')
     this.token = localStorage.getItem('token')
 
@@ -1366,7 +1367,7 @@ export class CreateAppComponent implements OnInit {
 
   async cerrarSesion() {
     let cerrar = await this._auth.cerrarSesion()
-    window.location.href = "https://solucionesavanzadasyserviciosdigitales.com/"
+    window.location.href = "https://sas-digital.com.mx/"
   }
 
 

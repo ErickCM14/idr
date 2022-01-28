@@ -15,7 +15,7 @@ export class AuthService {
   private url = "https://idr-backend.vercel.app/v1/"
   // private url = "http://localhost:4001/v1/"
   // private urlEmails = "http://localhost:3000/"
-  private urlEmails = "https://idrenlinea-api.herokuapp.com/"
+  private urlEmails = "https://idrenlinea2-api.herokuapp.com/"
   private urlEmails2 = "https://idrenlinea-api3.herokuapp.com/"
   private registrar = `${this.url}usuarios/`;
   private modificar = `${this.url}usuarios/modificar`;

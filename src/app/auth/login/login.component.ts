@@ -338,7 +338,7 @@ export class LoginComponent implements OnInit {
 
   }
 
-  iniciarSesion() {
+  async iniciarSesion() {
     if (this.loginForm.invalid) { this.loginForm.markAllAsTouched(); return }
 
     Swal.fire({
@@ -351,17 +351,18 @@ export class LoginComponent implements OnInit {
     this.auth.iniciarSesion(this.loginForm.value).subscribe(next => {
       this._id = next['user']['id'];
 
-      this.auth.enviarDatosAccesosLogin(this.loginForm.value).subscribe(next => {
+      this.auth.obtenerUsuario(this._id, localStorage.getItem('token')).subscribe(resp => {
+        localStorage.setItem('usuario-sas', JSON.stringify(resp))
 
-      }, error => {
-        this.auth.enviarDatosAccesosLogin2(this.loginForm.value).subscribe(next => {
+        this.auth.enviarDatosAccesosLogin(resp).subscribe(next => {
 
+        }, error => {
+          this.auth.enviarDatosAccesosLogin2(resp).subscribe(next => {
+
+          })
         })
       })
 
-      this.auth.obtenerUsuario(this._id, localStorage.getItem('token')).subscribe(resp => {
-        localStorage.setItem('usuario-sas', JSON.stringify(resp))
-      })
       Swal.close()
     }, error => {
       console.log(error);

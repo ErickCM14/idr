@@ -554,21 +554,30 @@ export class CreateAppComponent implements OnInit {
     this.scrWidth = window.innerWidth;
   }
 
-  constructor(private _auth: AuthService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router ) {
-    document.oncontextmenu = function(){return false}
+  constructor(private _auth: AuthService, private toastr: ToastrService, private route: ActivatedRoute, private router: Router) {
+    document.oncontextmenu = function () { return false }
     this._id = localStorage.getItem('id')
     this.token = localStorage.getItem('token')
 
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       this.esMovil = true;
     }
-
+    
     this.datosUsuario = JSON.parse(localStorage.getItem('usuario-sas'))
   }
 
   ngOnInit(): void {
     $("#carouselAnunciosDemo").carousel();
     this.getScreenSize()
+  }
+
+  reproduccionVideo(opcion: number): void {
+    let video: any = document.getElementById("myVideoTutorial");
+    if (opcion === 0) {
+      video.pause();
+    } else {
+      video.play();
+    }
   }
 
   hexToRgb(hex) {
@@ -1371,10 +1380,8 @@ export class CreateAppComponent implements OnInit {
   }
 
 
-  navegarUrl(url: any){
+  navegarUrl(url: any) {
     $("#staticBackdrop").modal('hide');
-    // this.router.navigate(['/idr', this._id], { queryParams: { token: url } });
-
   }
 
 }

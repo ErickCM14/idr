@@ -4,13 +4,16 @@
 <div class="contenedor">
     <main class="container pt-4 pb-5">
         <div class="row pt-4 position-relative" cdkDropListGroup>
-            <div class="col-9 position-relative" >
-                <div class="banderas mb-2 position-absolute" style="z-index: 10001; right: 0; top: 0; margin-top: -40px;">
-                    <button class="btn me-3 p-0" style="z-index: 1001;" >
-                        <img src="../../../assets/bandera-inglesa-header.png" class="bandera-b w-100 p-0" alt="Bandera inglesa">
+            <div class="col-9 position-relative">
+                <div class="banderas mb-2 position-absolute"
+                    style="z-index: 5; right: 0; top: 0; margin-top: -40px;">
+                    <button class="btn me-3 p-0" style="z-index: 10;">
+                        <img src="../../../assets/bandera-inglesa-header.png" class="bandera-b w-100 p-0"
+                            alt="Bandera inglesa">
                     </button>
-                    <button class="btn p-0" style="z-index: 1001;">
-                        <img src="../../../assets/bandera-espanola-header.png" class="bandera-b w-100 p-0" alt="Bandera española">
+                    <button class="btn p-0" style="z-index: 10;">
+                        <img src="../../../assets/bandera-espanola-header.png" class="bandera-b w-100 p-0"
+                            alt="Bandera española">
                     </button>
                 </div>
                 <h1 class="text-center fs-4" style="color:#2B6EAB; font-weight: 700; margin: 0;">IDR - Demo en Línea
@@ -18,14 +21,17 @@
                 <h2 class="text-center mb-2 fs-6" style="color:#2B6EAB; font-weight: 700;">Interactive Digital Response
                 </h2>
                 <div class="d-flex justify-content-between w-100 mb-3">
-                    <a href="javascript:void(0)" class="btn btn-sm botonHeader " data-bs-toggle="modal" data-bs-target="#modalTutorial"
-                        style="background-color: #F2F2F2; border: solid 2px gray;">Video Tutorial</a>
+                    <button type="button" class="btn btn-sm botonHeader " data-bs-toggle="modal"
+                        data-bs-target="#modalTutorial" style="background-color: #F2F2F2; border: solid 2px gray;"
+                        (click)="reproduccionVideo(1)">Video
+                        Tutorial</button>
                     <button type="button" class="btn btn-sm me-3 botonHeader"
                         style="background-color: #F2F2F2; border: solid 2px gray;" (click)="cerrarSesion()">Cerrar
                         sesión</button>
                 </div>
 
-                <h5>1.- Seleccione el formato del Menú gráfico (haciendo clic sobre la imagen y aparecerá en el móvil a la
+                <h5>1.- Seleccione el formato del Menú gráfico (haciendo clic sobre la imagen y aparecerá en el móvil a
+                    la
                     derecha):
                 </h5>
                 <section class="bloques">
@@ -62,7 +68,8 @@
 
                 <div class="row">
                     <div class="d-flex align-items-center mb-3">
-                        <label for="exampleColorInput" id="labelexampleColorInput" class="form-label me-3">Seleccione el color del botón </label>
+                        <label for="exampleColorInput" id="labelexampleColorInput" class="form-label me-3">Seleccione el
+                            color del botón </label>
                         <input type="color" class="form-control form-control-color" id="exampleColorInput"
                             value="#0000C8" (change)="cambioColor($event)" title="Choose your color">
                     </div>
@@ -75,15 +82,17 @@
 
                         <div cdkDropList id="cdk-drop-list-0" [cdkDropListData]="btnDrag1" class="d-flex flex-column"
                             style="width: 100%; ">
-                            <div *ngFor="let boton of this.btnDrag1; let i = index" class="m-2"
-                                style="min-width: 90px;" cdkDrag> <!--80px-->
+                            <div *ngFor="let boton of this.btnDrag1; let i = index" class="m-2" style="min-width: 90px;"
+                                cdkDrag>
+                                <!--80px-->
                                 <button type="button" (dblclick)="datoBoton(boton, i, $event)"
                                     [ngStyle]="{'background-color': boton.bg, 'color': boton.color }"
                                     class="btn w-100 p-0 fs-6 boton-rectangulo dropBtnRectangulo">
                                     <img [src]="boton.imagen"
                                         [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                        style="width: 18px; float: left; margin-left: 18%; margin-right: 5px;" class="botones-alineados-padding" alt="icono">
-                                        <!-- float: left; margin-left: 15%;" class="botones-alineados-padding" -->
+                                        style="width: 18px; float: left; margin-left: 18%; margin-right: 5px;"
+                                        class="botones-alineados-padding" alt="icono">
+                                    <!-- float: left; margin-left: 15%;" class="botones-alineados-padding" -->
                                     <!-- <span style="float: left; margin-left: 3%;" class="span-alineados-padding" >{{boton.texto}}</span> -->
                                     <span style="float: left;">{{boton.texto}}</span>
                                 </button>
@@ -94,7 +103,8 @@
 
 
                     <!-- Bloque 2 Dragable -->
-                    <div [ngClass]="900 >= scrWidth  ? 'col-2' : 'col-3'" class=" d-flex justify-content-center mb-3 bordes-btn-cuadrado">
+                    <div [ngClass]="900 >= scrWidth  ? 'col-2' : 'col-3'"
+                        class=" d-flex justify-content-center mb-3 bordes-btn-cuadrado">
 
                         <div class="gap-1 mb-3 mt-2" cdkDropListOrientation="vertical" cdkDropList id="cdk-drop-list-1"
                             [cdkDropListData]="btnDrag2"
@@ -227,17 +237,17 @@
                     <div class="col-12 d-flex flex-column justify-content-center">
 
                         <div class="mb-2">
-                            <label for="inputGroupFile01" id="labelinputGroupFile01"> Una imagen puede ser personalizada, subirla en formato
+                            <label for="inputGroupFile01" id="labelinputGroupFile01"> Una imagen puede ser
+                                personalizada, subirla en formato
                                 jpg/jpeg</label>
-                            <input type="file" class="form-control form-control-sm ms-2 w-50" name="file" accept="image/jpeg"
-                                id="inputGroupFile01" (change)="onfileChange($event)">
+                            <input type="file" class="form-control form-control-sm ms-2 w-50" name="file"
+                                accept="image/jpeg" id="inputGroupFile01" (change)="onfileChange($event)">
                         </div>
 
                         <div cdkDropList id="cdk-drop-list-4" [cdkDropListData]="anunciosDrag"
                             cdkDropListOrientation="horizontal" class="d-flex mb-1"
                             style="width: 100%; max-height: 120px;">
-                            <div *ngFor="let anuncio of this.anunciosDrag | slice:0:4; let i = index"
-                                cdkDrag>
+                            <div *ngFor="let anuncio of this.anunciosDrag | slice:0:4; let i = index" cdkDrag>
                                 <div class="btn p-0 fs-5" style=" width: 100%;">
                                     <img [src]="anuncio.imagen" style="width: 100%; max-height: 100px;" alt="">
                                 </div>
@@ -246,8 +256,7 @@
 
                         <div cdkDropList id="cdk-drop-list-5" [cdkDropListData]="anunciosDrag"
                             cdkDropListOrientation="horizontal" class="d-flex " style="width: 100%;">
-                            <div *ngFor="let anuncio of this.anunciosDrag | slice:4:8; let i = index"
-                                cdkDrag>
+                            <div *ngFor="let anuncio of this.anunciosDrag | slice:4:8; let i = index" cdkDrag>
                                 <div class="btn p-0 fs-5" style="max-width: 100%;">
                                     <img [src]="anuncio.imagen" style="width: 100%;" alt="">
                                 </div>
@@ -266,7 +275,8 @@
                                     cdkDrag>
                                     <p class="w-100"> Anuncio {{ i+1 }}</p>
                                     <p *ngIf="!anuncio.imagen">Arrastre el anuncio aquí</p>
-                                    <img [src]="anuncio.imagen" class="w-100" style="max-height: 65px; object-fit: cover;" alt="">
+                                    <img [src]="anuncio.imagen" class="w-100"
+                                        style="max-height: 65px; object-fit: cover;" alt="">
                                 </div>
 
                             </div>
@@ -277,9 +287,9 @@
                 </section>
 
                 <button type="button" (click)="guardar()" class="btn w-50 " id="boton-submit"
-                    style="background-color: #F2F2F2; border: solid 2px gray; font-size: 13px;">Generar código 
+                    style="background-color: #F2F2F2; border: solid 2px gray; font-size: 13px;">Generar código
                     QR y escanear desde su teléfono móvil, o toca el código QR o el Bit.Ly en tu pantalla Touch.
-                    </button>
+                </button>
 
             </div>
 
@@ -310,8 +320,9 @@
                                         <!-- <i [ngClass]="boton.icon" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"></i> -->
                                         <img [src]="boton.imagen"
                                             [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                            style="width: 18px; float: left; margin-left: 20%; margin-right: 5px;" class="botones-alineados-padding" alt="">
-                                            <span style="float: left;">{{boton.texto}}</span>
+                                            style="width: 18px; float: left; margin-left: 20%; margin-right: 5px;"
+                                            class="botones-alineados-padding" alt="">
+                                        <span style="float: left;">{{boton.texto}}</span>
                                     </div>
                                 </div>
                                 <div *ngFor="let boton of this.botonesDrop | slice:4:8; let i = index"
@@ -340,7 +351,8 @@
                                             [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
                                             style="width: 100%;" alt="">
                                     </button>
-                                    <span class="form-text position-absolute" id="primero2" style="font-size: 10px; bottom: 0; left: 0; right: 0; ">{{boton.texto}}</span>
+                                    <span class="form-text position-absolute" id="primero2"
+                                        style="font-size: 10px; bottom: 0; left: 0; right: 0; ">{{boton.texto}}</span>
                                 </div>
 
                             </div>
@@ -357,7 +369,8 @@
                                             [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
                                             style="width: 100%;" alt="">
                                     </button>
-                                    <span class="form-text position-absolute" style="font-size: 10px; bottom: 0; left: 0; right: 0;">{{boton.texto}}</span>
+                                    <span class="form-text position-absolute"
+                                        style="font-size: 10px; bottom: 0; left: 0; right: 0;">{{boton.texto}}</span>
                                 </div>
                             </div>
 
@@ -385,7 +398,8 @@
 
 
                         <!-- Bloque 3 Dropable -->
-                        <div *ngIf="this.bloque3" class="marginClase clase3" style="border: solid 2px black; padding: 5px 0;">
+                        <div *ngIf="this.bloque3" class="marginClase clase3"
+                            style="border: solid 2px black; padding: 5px 0;">
 
                             <div class="d-flex gap-1" cdkDropListOrientation="horizontal" cdkDropList
                                 id="cdk-drop-list-14" [cdkDropListData]="botonesDrop3"
@@ -401,7 +415,8 @@
                                             [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
                                             style="width: 100%;" alt="">
                                     </button>
-                                    <span class="form-text position-absolute" style="font-size: 10px; bottom: 0; left: 0; right: 0; ">{{boton.texto}}</span>
+                                    <span class="form-text position-absolute"
+                                        style="font-size: 10px; bottom: 0; left: 0; right: 0; ">{{boton.texto}}</span>
                                 </div>
 
                             </div>
@@ -425,8 +440,9 @@
                                         <!-- <i [ngClass]="boton.icon" [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"></i> -->
                                         <img [src]="boton.imagen"
                                             [ngStyle]="{'background-color': boton.bg, 'color': boton.color}"
-                                            style="width: 18px; float: left; margin-left: 20%; margin-right: 5px;" class="botones-alineados-padding" alt="">
-                                            <span style="float: left;">{{boton.texto}}</span>
+                                            style="width: 18px; float: left; margin-left: 20%; margin-right: 5px;"
+                                            class="botones-alineados-padding" alt="">
+                                        <span style="float: left;">{{boton.texto}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -435,7 +451,8 @@
 
 
                         <!-- Bloque 4 Dropable -->
-                        <div *ngIf="this.bloque4" class="marginClase clase4" style="border: solid 2px black; padding: 5px 0;">
+                        <div *ngIf="this.bloque4" class="marginClase clase4"
+                            style="border: solid 2px black; padding: 5px 0;">
 
                             <div class=" d-flex gap-1" cdkDropListOrientation="horizontal" cdkDropList
                                 id="cdk-drop-list-16" [cdkDropListData]="botonesDrop4"
@@ -492,7 +509,7 @@
 
 
                         <!-- *ngIf="bloque1 || bloque2 || bloque3 || bloque4 || sinBloque" -->
-                        <div >
+                        <div>
                             <div id="carouselAnunciosDemo" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active" data-bs-interval="4000">
@@ -546,14 +563,15 @@
                     </div>
                     <div class="modal-body">
                         <div class="text-center">
-                            <a *ngIf="esMovil" [href]="this.urlQR" (click)="navegarUrl(this.urlQR)" >
+                            <a *ngIf="esMovil" target="_blank" [href]="this.urlQR" (click)="navegarUrl(this.urlQR)">
                                 <qrcode *ngIf="booleanQR" [qrdata]="urlQR" [elementType]="element" [width]="250"
-                                    [errorCorrectionLevel]="'M'"></qrcode>
+                                    [errorCorrectionLevel]="'M'" draggable="false"></qrcode>
                             </a>
                             <qrcode *ngIf="!esMovil" [qrdata]="urlQR" [elementType]="element" [width]="250"
-                                [errorCorrectionLevel]="'M'"></qrcode>
+                                [errorCorrectionLevel]="'M'" draggable="false"></qrcode>
                             <!-- <a *ngIf="esMovil" (click)="navegarUrl(this.urlQR)">Menú gráfico IDR</a> -->
-                            <a *ngIf="esMovil" (click)="navegarUrl(this.urlQR)" [href]="this.urlQR">Menú gráfico IDR</a>
+                            <a *ngIf="esMovil" (click)="navegarUrl(this.urlQR)" target="_blank" [href]="this.urlQR">Menú
+                                gráfico IDR</a>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -578,24 +596,27 @@
 
 
 <!-- Modal de video -->
-<div class="modal" id="modalTutorial" tabindex="-1" aria-labelledby="modalTutorialLabel" aria-hidden="true">
+<div class="modal fade" id="modalTutorial" style="z-index: 10000;" tabindex="-1" data-bs-keyboard="false"
+    data-bs-backdrop="static" aria-labelledby="modalTutorialLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Video tutorial</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div style="max-width: 700px; margin: 0 auto;" >
-                <video src="../../../assets/Tutorial-IDR-Demo-en-linea.mp4" controls class="w-100">
-                </video>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Video tutorial</h5>
+                <button type="button" class="btn-close" (click)="reproduccionVideo(0)" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
             </div>
-            
-        </div>
-        <!-- <div class="modal-footer">
+            <div class="modal-body">
+                <div style="max-width: 700px; margin: 0 auto;">
+                    <video id="myVideoTutorial" src="../../../assets/Tutorial-IDR-Demo-en-linea.mp4" controls
+                        class="w-100">
+                    </video>
+                </div>
+
+            </div>
+            <!-- <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">Save changes</button>
         </div> -->
-      </div>
+        </div>
     </div>
-  </div>
+</div>
